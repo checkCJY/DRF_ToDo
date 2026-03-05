@@ -102,7 +102,7 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 ---
 
 ## 📂 프로젝트 구조
-
+```
 DRF_todoList_26221/
 ├── mysite/ # Django 프로젝트 설정
 ├── todo/ # Todo 앱
@@ -111,7 +111,7 @@ DRF_todoList_26221/
 ├── manage.py
 ├── requirements.txt
 └── .pre-commit-config.yaml
-
+```
 
 ---
 
