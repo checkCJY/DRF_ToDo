@@ -23,24 +23,15 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 ## 🧭 전체 개발 로드맵
 
 ### 1️⃣ Django 기본 세팅
-<div align="center">
-  <img src="docs/screenshots/01_check.png" width="45%"/>
-  <img src="docs/screenshots/01_admin.png" width="45%"/>
-</div>
+**API 확인**
+<img src="docs/screenshots/2_get_api.png" width="700"/>
 
-### 2️⃣ Generic View 기반 CRUD
-API 확인
-<img src="docs/screenshots/2_get_api.png" width="600"/>
-CRUD
-<div align="center">
-  <img src="docs/screenshots/02_create.png" width="45%"/>
-  <img src="docs/screenshots/02_get_detail.png" width="45%"/>
-</div>
-<div align="center">
-  <img src="docs/screenshots/02_update.png" width="30%"/>
-  <img src="docs/screenshots/02_delete.png" width="30%"/>
-  <img src="docs/screenshots/02_delete_check.png" width="30%"/>
-</div>
+**CRUD**
+<img src="docs/screenshots/02_create.png" width="700"/>
+<img src="docs/screenshots/02_get_detail.png" width="700"/>
+<img src="docs/screenshots/02_update.png" width="700"/>
+<img src="docs/screenshots/02_delete.png" width="700"/>
+<img src="docs/screenshots/02_delete_check.png" width="700"/>
 
 
 ### 3️⃣ DRF ViewSets로 API 전환
