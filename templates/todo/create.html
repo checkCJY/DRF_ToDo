@@ -29,30 +29,15 @@
 
 <!-- axios: fetch보다 간편한 HTTP 요청 라이브러리 -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{% static 'todo/api.js' %}"></script>
 
 <script>
-const api = axios.create({
-  baseURL: "/",
-  headers: { "Content-Type": "application/json" },
-});
-
-// 모든 요청 전 CSRF 토큰을 자동으로 헤더에 추가 (Django 보안 필수)
-api.interceptors.request.use(config => {
-  const csrfToken = document.cookie
-    .split("; ")
-    .find(row => row.startsWith("csrftoken"))
-    ?.split("=")[1];  // 쿠키에서 csrftoken 값 추출
-
-  if (csrfToken) {
-    config.headers["X-CSRFToken"] = csrfToken;
-  }
-  return config;
-});
 
 
 document.getElementById("todoCreate").addEventListener("click", async () => {
   try {
-    const res = await api.post("todo/api/create/", {
+    // 기존 API주소 (todo/api/create/를 ViewSet API주소로 변경)
+    const res = await api.post("todo/viewsets/view/", {
       name: document.getElementById("name").value,
       description: document.getElementById("description").value,
       complete: document.getElementById("complete").checked,
@@ -64,6 +49,7 @@ document.getElementById("todoCreate").addEventListener("click", async () => {
 
   } catch (err) {
     console.error(err.response?.data || err.message);
+    alert("생성 중 오류가 발생했습니다.");
   }
 });
 </script>

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %} <!--api.js 사용하기 위해서 추가-->
 {% block content %}
 
 <div class="todoDetail">
@@ -14,6 +15,8 @@
   <button class="todoHome">홈으로</button>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{% static 'todo/api.js' %}"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const todoId = "{{ todo.id }}";
@@ -21,14 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const homeBtn = document.querySelector(".todoHome");
   const deleteBtn = document.querySelector(".todoDelete");
 
+  // 아래 부분은 api.js에 의해 삭제
+  //const api = axios.create({
+  //  baseURL: "/",
+  //  headers: { "Content-Type": "application/json" },
+  //});
+
   homeBtn.addEventListener("click", () => {
-    // 방식 1: Dajngo 템플릿 태그
-    // URL이 바뀌어도 자동으로 따라가지만, JS변수를 끼워넣기 어려움
     window.location.href = "{% url 'todo:list' %}";
   });
 
   updateBtn.addEventListener("click", () => {
-    // 방식 2 : 하드코딩
     window.location.href = `/todo/update/${todoId}/`;
   });
 
@@ -37,15 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!ok) return;
 
     try {
-      // CSRF 헤더 없이도 DELETE는 Django가 허용 (멱등 메서드)
-      const res = await fetch(`/todo/api/delete/${todoId}/`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!res.ok) throw new Error("삭제 실패");
+      await api.delete(`/todo/viewsets/view/${todoId}/`);
       window.location.href = "/todo/list/";
     } catch (err) {
-      console.error(err);
+      console.error(err.response?.data || err.message);
       alert("삭제 중 오류가 발생했습니다.");
     }
   });
