@@ -23,16 +23,15 @@
     document.addEventListener("DOMContentLoaded", function () {
         console.log("create loading");
 
-
+        // 각 todo 카드 클릭 시 해당 상세 페이지로 이동
+        // dataset.id → HTML의 data-id 속성값을 읽어옴
         const items = document.querySelectorAll(".todo-item");
         items.forEach(item => {
             item.addEventListener("click", () => {
-                const todoId = item.dataset.id;    // dataset의 의미 확인해보기
-                // 해당 pk를 사용하여 상세 페이지로 이동
+                const todoId = item.dataset.id;
                 window.location.href = `/todo/detail/${todoId}/`;
             });
         });
-
 
         document.getElementById("createBtn").addEventListener
         ("click", () => {
