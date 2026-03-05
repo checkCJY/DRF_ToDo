@@ -12,6 +12,9 @@ jobs:
   build:
     # GitHub에서 제공하는 Ubuntu 환경에서 실행
     runs-on: ubuntu-latest
+    # 추가, github actions 통과를 위한 env 키값
+    env:
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
 
     strategy:
       # 최대 4개 작업 동시 실행 가능
