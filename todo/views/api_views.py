@@ -68,3 +68,71 @@ class TodoRetrieveAPI(APIView):
 
         return Response(serializer.data)
         # 변환된 데이터를 JSON 응답으로 반환
+
+
+# 수정하기 API
+class TodoUpdateAPI(APIView):
+
+    def put(self, request, pk):
+        # PUT 요청 → 전체 수정 (모든 필드를 다시 보내야 함)
+
+        try:
+            todo = Todo.objects.get(pk=pk)
+            # pk에 해당하는 Todo 데이터 조회
+
+        except Todo.DoesNotExist:
+            # 해당 Todo가 존재하지 않을 경우
+
+            return Response(
+                {"error": "해당하는 todo가 없습니다."},
+                # 에러 메시지를 JSON 형태로 반환
+                status=status.HTTP_404_NOT_FOUND,
+                # HTTP 상태코드 404 반환
+            )
+
+        serializer = TodoSerializer(todo, data=request.data)
+        # 기존 Todo 객체 + 요청 데이터(request.data)를 Serializer에 전달
+        # 전체 데이터를 기준으로 수정
+
+        serializer.is_valid(raise_exception=True)
+        # 데이터 유효성 검사 (문제 있으면 400 에러 발생)
+
+        todo = serializer.save()
+        # 검증된 데이터로 Todo 객체 업데이트
+
+        serializer = TodoSerializer(todo)
+        # 수정된 Todo 객체를 다시 Serializer로 변환
+
+        return Response(serializer.data)
+        # 수정된 데이터를 JSON 형태로 응답
+
+    def patch(self, request, pk):
+        # PATCH 요청 → 부분 수정 (일부 필드만 수정 가능)
+
+        try:
+            todo = Todo.objects.get(pk=pk)
+            # pk에 해당하는 Todo 데이터 조회
+
+        except Todo.DoesNotExist:
+            # 해당 Todo가 존재하지 않을 경우
+
+            return Response(
+                {"error": "해당하는 todo가 없습니다."},
+                status=status.HTTP_404_NOT_FOUND,
+                # HTTP 상태코드 404 반환
+            )
+
+        serializer = TodoSerializer(todo, data=request.data, partial=True)
+        # partial=True → 일부 필드만 보내도 수정 가능
+
+        serializer.is_valid(raise_exception=True)
+        # 데이터 유효성 검사
+
+        todo = serializer.save()
+        # 수정된 데이터 DB 저장
+
+        serializer = TodoSerializer(todo)
+        # 수정된 객체를 JSON 변환
+
+        return Response(serializer.data)
+        # 수정된 데이터 응답

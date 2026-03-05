@@ -14,4 +14,24 @@
   <button class="todoHome">홈으로</button>
 </div>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const todoId = "{{ todo.id }}";
+  const updateBtn = document.querySelector(".todoUpdate");
+  const homeBtn = document.querySelector(".todoHome");
+
+  homeBtn.addEventListener("click", () => {
+    // 장고의 url 태그를 이용해 안전하게 홈(목록)으로 이동
+    window.location.href = "{% url 'todo:list' %}";
+  });
+
+  updateBtn.addEventListener("click", () => {
+    // 해당 todo의 수정 페이지로 이동
+    window.location.href = `/todo/update/${todoId}/`;
+  });
+
+  // 삭제는 나중에 연결 (DeleteView 또는 API와 연결 예정)
+});
+</script>
+
 {% endblock %}

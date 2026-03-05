@@ -1,5 +1,5 @@
 from ..models import Todo
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy
 
 # 함수형 list
@@ -62,3 +62,23 @@ class TodoDetailView(DetailView):
     context_object_name = "todo"
     # 템플릿에서 사용할 변수 이름
     # 기본값 object 대신 todo라는 이름으로 전달됨
+
+
+# 수정하기 화면(View)
+class TodoUpdateView(UpdateView):
+    model = Todo
+    # 수정할 대상 모델 (Todo 테이블의 데이터를 수정)
+
+    fields = ["name", "description", "complete", "exp"]
+    # 수정할 때 사용할 모델 필드
+    # 이 필드들을 기반으로 HTML form이 자동 생성됨
+
+    template_name = "todo/update.html"
+    # 수정 화면에 사용할 HTML 템플릿 파일
+
+    context_object_name = "todo"
+    # 템플릿에서 사용할 변수 이름
+    # 기본값 object 대신 todo로 전달됨
+
+    success_url = reverse_lazy("todo:list")
+    # 수정이 성공하면 이동할 URL (todo 목록 페이지)
