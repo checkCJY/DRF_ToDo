@@ -136,3 +136,31 @@ class TodoUpdateAPI(APIView):
 
         return Response(serializer.data)
         # 수정된 데이터 응답
+
+
+# 삭제하기 API
+class TodoDeleteAPI(APIView):
+
+    def delete(self, request, pk):
+        # DELETE 요청이 들어오면 실행되는 함수
+        # pk는 URL로 전달된 Todo의 기본키(id)
+
+        try:
+            todo = Todo.objects.get(pk=pk)
+            # pk에 해당하는 Todo 데이터를 DB에서 조회
+
+        except Todo.DoesNotExist:
+            # 해당 Todo가 존재하지 않을 경우 실행
+
+            return Response(
+                {"error": "해당하는 todo가 없습니다."},
+                # 에러 메시지를 JSON 형태로 반환
+                status=status.HTTP_404_NOT_FOUND,
+                # HTTP 상태코드 404 (데이터 없음)
+            )
+
+        todo.delete()
+        # 조회한 Todo 데이터를 DB에서 삭제
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        # 삭제 성공 시 응답 반환 (204 = 성공했지만 반환할 데이터 없음)

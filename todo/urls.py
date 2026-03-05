@@ -5,7 +5,13 @@ from .views.templates_views import (
     TodoDetailView,
     TodoUpdateView,
 )
-from .views.api_views import TodoListAPI, TodoCreateAPI, TodoRetrieveAPI, TodoUpdateAPI
+from .views.api_views import (
+    TodoListAPI,
+    TodoCreateAPI,
+    TodoRetrieveAPI,
+    TodoUpdateAPI,
+    TodoDeleteAPI,
+)
 
 app_name = "todo"
 
@@ -21,4 +27,5 @@ urlpatterns = [
     path("api/create/", TodoCreateAPI.as_view(), name="todo_api_create"),
     path("api/retrieve/<int:pk>/", TodoRetrieveAPI.as_view(), name="todo_api_retrieve"),
     path("api/update/<int:pk>/", TodoUpdateAPI.as_view(), name="todo_api_update"),
+    path("api/delete/<int:pk>/", TodoDeleteAPI.as_view(), name="todo_api_delete"),
 ]

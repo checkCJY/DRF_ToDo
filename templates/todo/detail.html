@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const todoId = "{{ todo.id }}";
   const updateBtn = document.querySelector(".todoUpdate");
   const homeBtn = document.querySelector(".todoHome");
+  const deleteBtn = document.querySelector(".todoDelete");
 
   homeBtn.addEventListener("click", () => {
     // 장고의 url 태그를 이용해 안전하게 홈(목록)으로 이동
@@ -30,7 +31,26 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = `/todo/update/${todoId}/`;
   });
 
-  // 삭제는 나중에 연결 (DeleteView 또는 API와 연결 예정)
+  deleteBtn.addEventListener("click", async () => {
+    const ok = confirm("정말 삭제하시겠습니까?");
+    if (!ok) return;
+    try {
+      // DELETE 요청으로 Todo 삭제 API 호출
+      const res = await fetch(`/todo/api/delete/${todoId}/`, {
+        method: "DELETE",
+        headers: {
+          // 서버에 JSON 형식 요청임을 알림
+          "Content-Type": "application/json",
+        }
+      });
+      if (!res.ok) throw new Error("삭제 실패");
+      window.location.href = "/todo/list/";
+    } catch (err) {
+      console.error(err);
+      alert("삭제 중 오류가 발생했습니다.");
+    }
+  });
+
 });
 </script>
 
