@@ -52,7 +52,8 @@ api.interceptors.request.use(config => {
 
 document.getElementById("todoCreate").addEventListener("click", async () => {
   try {
-    const res = await api.post("todo/api/create/", {
+    // 기존 API주소 (todo/api/create/를 ViewSet API주소로 변경)
+    const res = await api.post("todo/viewsets/view/", {
       name: document.getElementById("name").value,
       description: document.getElementById("description").value,
       complete: document.getElementById("complete").checked,
@@ -64,6 +65,7 @@ document.getElementById("todoCreate").addEventListener("click", async () => {
 
   } catch (err) {
     console.error(err.response?.data || err.message);
+    alert("생성 중 오류가 발생했습니다.");
   }
 });
 </script>
