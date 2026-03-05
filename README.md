@@ -23,20 +23,32 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 ## 🧭 전체 개발 로드맵
 
 ### 1️⃣ Django 기본 세팅
+
+<img src="docs/screenshots/01/01_check.png" width="700"/>
+<img src="docs/screenshots/01/01_admin.png" width="700"/>
+
+
+### 2️⃣ Generic View 기반 CRUD
+
 **API 확인**
-<img src="docs/screenshots/2_get_api.png" width="700"/>
+<img src="docs/screenshots/02/02_get_api.png" width="700"/>
 
 **CRUD**
-<img src="docs/screenshots/02_create.png" width="700"/>
-<img src="docs/screenshots/02_get_detail.png" width="700"/>
-<img src="docs/screenshots/02_update.png" width="700"/>
-<img src="docs/screenshots/02_delete.png" width="700"/>
-<img src="docs/screenshots/02_delete_check.png" width="700"/>
+<img src="docs/screenshots/02/02_create.png" width="700"/>
+<img src="docs/screenshots/02/02_get_detail.png" width="700"/>
+<img src="docs/screenshots/02/02_update.png" width="700"/>
+<img src="docs/screenshots/02/02_delete.png" width="700"/>
+<img src="docs/screenshots/02/02_delete_check.png" width="700"/>
 
 
 ### 3️⃣ DRF ViewSets로 API 전환
-- Serializer 설계
-- API 응답 구조 설계
+**CRUD**
+<img src="docs/screenshots/03/03_Create_viewsets.png" width="700"/>
+<img src="docs/screenshots/03/03_list_viewsets.png" width="700"/>
+<img src="docs/screenshots/03/03_Retrieve_viewsets.png" width="700"/>
+<img src="docs/screenshots/03/03_Patch_viewsets.png" width="700"/>
+<img src="docs/screenshots/03/03_Delete1_viewsets.png" width="700"/>
+<img src="docs/screenshots/03/03_Delete2_viewsets.png" width="700"/>
 
 ### 4️⃣ 환경 변수 설정 (.env)
 
