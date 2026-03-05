@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %} <!--api.js 사용하기 위해서 추가-->
 {% block content %}
 
 <div class="todoDetail">
@@ -15,6 +16,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{% static 'todo/api.js' %}"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const todoId = "{{ todo.id }}";
@@ -22,10 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const homeBtn = document.querySelector(".todoHome");
   const deleteBtn = document.querySelector(".todoDelete");
 
-  const api = axios.create({
-    baseURL: "/",
-    headers: { "Content-Type": "application/json" },
-  });
+  // 아래 부분은 api.js에 의해 삭제
+  //const api = axios.create({
+  //  baseURL: "/",
+  //  headers: { "Content-Type": "application/json" },
+  //});
 
   homeBtn.addEventListener("click", () => {
     window.location.href = "{% url 'todo:list' %}";
