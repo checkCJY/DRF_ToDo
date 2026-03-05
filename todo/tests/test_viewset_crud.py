@@ -33,14 +33,18 @@ def todo(db):
 
 @pytest.mark.django_db
 def test_list(client, todo):
-    """목록 조회 검증 (최소 1개 이상의 리스트 반환)"""
+    """목록 조회 검증 (페이지네이션 응답 구조, 최소 1개 이상의 데이터 반환)"""
     res = client.get(BASE_URL)
 
     assert res.status_code == 200
 
     data = res.json()
-    assert isinstance(data, list)
-    assert len(data) >= 1
+    # CustomPageNumberPagination 적용으로 응답은 dict 형태
+    # assert isinstance(data, list)
+    # assert len(data) >= 1
+    assert isinstance(data, dict)
+    assert "data" in data
+    assert len(data["data"]) >= 1
 
 
 @pytest.mark.django_db
@@ -97,3 +101,24 @@ def test_not_found_returns_404(client):
     res = client.get(f"{BASE_URL}999999/")
 
     assert res.status_code == 404
+
+
+@pytest.mark.django_db
+def test_full_update_put(client, todo):
+    """Todo 전체 수정(PUT) 성공 및 실제 DB 값 변경 검증"""
+    payload = {
+        "name": "수영",
+        "description": "접영 30분",
+        "complete": True,
+        "exp": 20,
+    }
+
+    res = client.put(f"{BASE_URL}{todo.id}/", payload, format="json")
+
+    assert res.status_code == 200
+
+    todo.refresh_from_db()
+    assert todo.name == "수영"
+    assert todo.description == "접영 30분"
+    assert todo.complete is True
+    assert todo.exp == 20

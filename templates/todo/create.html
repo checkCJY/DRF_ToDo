@@ -24,7 +24,8 @@
       <input type="number" name="exp" id="exp" min="0">
     </div>
 
-    <button type="submit" id="todoCreate">Create</button>
+    <button type="submit" id="todoCreate">생성</button>
+    <button class="todoHome">홈으로</button>
 </div>
 
 <!-- axios: fetch보다 간편한 HTTP 요청 라이브러리 -->
@@ -33,6 +34,11 @@
 
 <script>
 
+const homeBtn = document.querySelector(".todoHome");
+
+homeBtn.addEventListener("click", () => {
+    window.location.href = "{% url 'todo:list' %}";
+  });
 
 document.getElementById("todoCreate").addEventListener("click", async () => {
   try {

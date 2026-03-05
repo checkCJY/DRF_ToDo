@@ -56,6 +56,10 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 5️⃣ Pagination 추가
 
+<img src="docs/screenshots/05/05_pagenation1.png" width="700"/>
+<img src="docs/screenshots/05/05_pagenation2.png" width="700"/>
+<img src="docs/screenshots/05/05_pagenation3.png" width="700"/>
+
 ### 6️⃣ 이미지 업로드 기능 추가
 
 ### 7️⃣ 회원가입 / 로그인 기능 구현
