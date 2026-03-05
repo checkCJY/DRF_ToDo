@@ -1,0 +1,8 @@
+### Step 1
+
+DRF_todoList_26221/
+├── mysite/             # ← settings.py 있는 메인 프로젝트
+├── todo/               # ← 새로 만든 앱
+├── manage.py
+├── .venv/
+└── requirements.txt
