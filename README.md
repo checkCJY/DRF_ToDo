@@ -30,10 +30,10 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 2️⃣ Generic View 기반 CRUD
 
-**API 확인**
+##### **API 확인**
 <img src="docs/screenshots/02/02_get_api.png" width="700"/>
 
-**CRUD**
+##### **CRUD**
 <img src="docs/screenshots/02/02_create.png" width="700"/>
 <img src="docs/screenshots/02/02_get_detail.png" width="700"/>
 <img src="docs/screenshots/02/02_update.png" width="700"/>
@@ -42,7 +42,7 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 
 ### 3️⃣ DRF ViewSets로 API 전환
-**CRUD**
+##### **CRUD**
 <img src="docs/screenshots/03/03_Create_viewsets.png" width="700"/>
 <img src="docs/screenshots/03/03_list_viewsets.png" width="700"/>
 <img src="docs/screenshots/03/03_Retrieve_viewsets.png" width="700"/>
@@ -51,6 +51,8 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 <img src="docs/screenshots/03/03_Delete2_viewsets.png" width="700"/>
 
 ### 4️⃣ 환경 변수 설정 (.env)
+
+<img src="docs/screenshots/04/04_env.png" width="700"/>
 
 ### 5️⃣ Pagination 추가
 
