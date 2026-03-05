@@ -23,13 +23,16 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 ## 🧭 전체 개발 로드맵
 
 ### 1️⃣ Django 기본 세팅
-- 가상환경 설정 (uv)
-- pre-commit 설정 (black, isort, flake8)
-- Todo CRUD 구현
+**API 확인**
+<img src="docs/screenshots/2_get_api.png" width="700"/>
 
-### 2️⃣ Generic View 기반 CRUD
-- CBV 기반 구조 설계
-- Django Template 렌더링
+**CRUD**
+<img src="docs/screenshots/02_create.png" width="700"/>
+<img src="docs/screenshots/02_get_detail.png" width="700"/>
+<img src="docs/screenshots/02_update.png" width="700"/>
+<img src="docs/screenshots/02_delete.png" width="700"/>
+<img src="docs/screenshots/02_delete_check.png" width="700"/>
+
 
 ### 3️⃣ DRF ViewSets로 API 전환
 - Serializer 설계
@@ -102,7 +105,7 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 ---
 
 ## 📂 프로젝트 구조
-
+```
 DRF_todoList_26221/
 ├── mysite/ # Django 프로젝트 설정
 ├── todo/ # Todo 앱
@@ -111,7 +114,7 @@ DRF_todoList_26221/
 ├── manage.py
 ├── requirements.txt
 └── .pre-commit-config.yaml
-
+```
 
 ---
 

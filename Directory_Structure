@@ -6,3 +6,26 @@ DRF_todoList_26221/
 ├── manage.py
 ├── .venv/
 └── requirements.txt
+
+### Step 2
+todo/
+│
+├── migrations/
+│
+├── views/                     ✅ views 전용 폴더
+│   ├── __init__.py            ✅ 반드시 필요 (폴더 → 모듈 인식)
+│   ├── api_views.py           ✅ DRF / JSON 응답 전용
+│   └── templates_views.py     ✅ HTML 렌더링 전용
+│   # views.py를 templates_views.py로 이름 변경
+│
+│
+├── templates/
+│   └── todo/
+│       ├── list.html
+│       └── todo.html
+│
+├── serializers.py             ✅ DRF Serializer
+├── models.py                  ✅ Model
+├── urls.py                    ✅ URL 연결
+├── admin.py
+└── apps.py

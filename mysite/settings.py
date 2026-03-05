@@ -122,3 +122,11 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+# DRF 브라우저용 HTML 화면을 끄고, 무조건 JSON만 응답하게 하는 옵션
+# API 서버만 사용하고, 브라우저에서 DRF 화면 필요 없을 때 (React/모바일 이용)
+# REST_FRAMEWORK = {
+#   "DEFAULT_RENDERER_CLASSES": [
+#     "rest_framework.renderers.JSONRenderer",
+#   ],
+# }

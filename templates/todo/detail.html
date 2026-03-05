@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="todoDetail">
+  <p><strong>이름:</strong> {{ todo.name }}</p>
+  <p><strong>설명:</strong> {{ todo.description }}</p>
+  <p><strong>완료 여부:</strong> {{ todo.complete }}</p>
+  <p><strong>작성일:</strong> {{ todo.created_at }}</p>
+</div>
+
+<div class="btnList">
+  <button class="todoUpdate">수정</button>
+  <button class="todoDelete">삭제</button>
+  <button class="todoHome">홈으로</button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const todoId = "{{ todo.id }}";
+  const updateBtn = document.querySelector(".todoUpdate");
+  const homeBtn = document.querySelector(".todoHome");
+  const deleteBtn = document.querySelector(".todoDelete");
+
+  homeBtn.addEventListener("click", () => {
+    // 방식 1: Dajngo 템플릿 태그
+    // URL이 바뀌어도 자동으로 따라가지만, JS변수를 끼워넣기 어려움
+    window.location.href = "{% url 'todo:list' %}";
+  });
+
+  updateBtn.addEventListener("click", () => {
+    // 방식 2 : 하드코딩
+    window.location.href = `/todo/update/${todoId}/`;
+  });
+
+  deleteBtn.addEventListener("click", async () => {
+    const ok = confirm("정말 삭제하시겠습니까?");
+    if (!ok) return;
+
+    try {
+      // CSRF 헤더 없이도 DELETE는 Django가 허용 (멱등 메서드)
+      const res = await fetch(`/todo/api/delete/${todoId}/`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!res.ok) throw new Error("삭제 실패");
+      window.location.href = "/todo/list/";
+    } catch (err) {
+      console.error(err);
+      alert("삭제 중 오류가 발생했습니다.");
+    }
+  });
+
+});
+</script>
+
+{% endblock %}

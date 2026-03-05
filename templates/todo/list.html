@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="todocontainer">
+    {% for todo in todos %}
+        <div class="todo-item" data-id="{{ todo.pk }}">
+            <p><strong>이름:</strong> {{ todo.name }}</p>
+            <p><strong>설명:</strong> {{ todo.description }}</p>
+            <p><strong>완료 여부:</strong> {{ todo.complete }}</p>
+            <p><strong>작성일:</strong>
+            {{ todo.created_at|date:"Y-m-d H:i" }}</p>
+
+            <hr>
+        </div>
+    {% empty %}
+        <p>등록된 할 일이 없습니다.</p>
+    {% endfor %}
+</div>
+<button class="todoCreate" id="createBtn">Todo 등록하기</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("create loading");
+
+        // 각 todo 카드 클릭 시 해당 상세 페이지로 이동
+        // dataset.id → HTML의 data-id 속성값을 읽어옴
+        const items = document.querySelectorAll(".todo-item");
+        items.forEach(item => {
+            item.addEventListener("click", () => {
+                const todoId = item.dataset.id;
+                window.location.href = `/todo/detail/${todoId}/`;
+            });
+        });
+
+        document.getElementById("createBtn").addEventListener
+        ("click", () => {
+            window.location.href = "/todo/create/";
+            console.log("createBtn click");
+        });
+    });
+
+</script>
+{% endblock %}
