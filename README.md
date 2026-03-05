@@ -52,6 +52,8 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 4️⃣ 환경 변수 설정 (.env)
 
+<img src="docs/screenshots/04/04_env.png" width="700"/>
+
 ### 5️⃣ Pagination 추가
 
 ### 6️⃣ 이미지 업로드 기능 추가
