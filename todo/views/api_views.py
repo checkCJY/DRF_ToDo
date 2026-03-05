@@ -2,6 +2,7 @@
 from rest_framework import viewsets  # viewsets 사용을 위해 추가
 from ..models import Todo
 from ..serializers import TodoSerializer
+from rest_framework.pagination import PageNumberPagination
 
 
 class TodoViewSet(viewsets.ModelViewSet):
@@ -17,6 +18,21 @@ ModelViewSet을 사용하면 아래 기능이 자동 생성됩니다
 - update()    : 전체 수정 (PUT)
 - partial_update() : 부분 수정 (PATCH)
 - destroy()   : 삭제 (DELETE)
+"""
+
+
+# Todo 목록 페이지네이션 설정
+class TodoListPagination(PageNumberPagination):
+
+    page_size = 3
+    page_size_query_param = "page_size"
+    max_page_size = 50
+
+
+"""
+page_size=              : 한 페이지에 기본적으로 보여줄 데이터 개수
+page_size_query_param   : URL 쿼리 파라미터로 페이지 크기 변경 가능
+max_page_size           : 사용자가 설정할 수 있는 최대 페이지 크기 제한
 """
 
 # 아래 내용들은 Viewset 사용으로 인해서 안쓰는 코드
