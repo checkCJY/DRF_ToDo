@@ -62,6 +62,18 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 6️⃣ 이미지 업로드 기능 추가
 
+##### **API**
+
+<img src="docs/screenshots/06/06_이미지파일_추가.png" width="700"/>
+<img src="docs/screenshots/06/06_image_fales.png" width="700"/>
+<img src="docs/screenshots/06/06_image_True.png" width="700"/>
+
+##### **Page**
+
+<img src="docs/screenshots/06/06_image_page.png" width="700"/>
+<img src="docs/screenshots/06/06_image_update.png" width="700"/>
+
+
 ### 7️⃣ 회원가입 / 로그인 기능 구현
 
 ### 8️⃣ 템플릿 구조 정리
@@ -124,13 +136,60 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ## 📂 프로젝트 구조
 ```
-DRF_todoList_26221/
-├── mysite/ # Django 프로젝트 설정
-├── todo/ # Todo 앱
-├── templates/
-├── static/
+DRF_todoList/
+├── mysite/                    # Django 프로젝트 설정
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── todo/                      # Todo 앱
+│   ├── migrations/
+│   ├── tests/
+│   │   ├── test_admin.py
+│   │   ├── test_crud.py
+│   │   ├── test_model.py
+│   │   ├── test_pagination.py
+│   │   ├── test_serializer.py
+│   │   ├── test_template_views.py
+│   │   └── test_viewset_crud.py
+│   ├── views/
+│   │   ├── api_views.py
+│   │   └── templates_views.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── pagination.py
+│   ├── serializers.py
+│   └── urls.py
+├── templates/                 # HTML 템플릿
+│   ├── base.html
+│   └── todo/
+│       ├── create.html
+│       ├── detail.html
+│       ├── list.html
+│       ├── todo.html
+│       └── update.html
+├── static/                    # 정적 파일
+│   └── todo/
+│       ├── api.js
+│       ├── style.css
+│       └── todo.html
+├── media/                     # 업로드된 이미지
+│   └── todo_images/
+├── docs/                      # 문서 및 스크린샷
+│   ├── guide.md
+│   ├── question.md
+│   ├── study.md
+│   └── screenshots/
+│       ├── 01/ ~ 06/
+├── db.sqlite3
+├── main.py
 ├── manage.py
+├── pyproject.toml
+├── pytest.ini
 ├── requirements.txt
+├── Commit_Rules.md
 └── .pre-commit-config.yaml
 ```
 
