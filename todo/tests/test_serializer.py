@@ -5,15 +5,10 @@ from ..models import Todo
 # pytest todo/tests/test_serializer.py -v
 
 
-@pytest.fixture
-def todo(db):
-    return Todo.objects.create(name="운동", description="스쿼트 50회", exp=10)
-
-
 # 직렬화 필드 목록 검증
 @pytest.mark.django_db
 def test_serializer_fields(todo):
-    """직렬화 결과에 선언한 8개 필드가 모두 포함되는지 검증"""
+    """직렬화 결과에 선언한 필드가 모두 포함되는지 검증"""
     serializer = TodoSerializer(todo)
     expected_fields = {
         "id",
@@ -24,7 +19,8 @@ def test_serializer_fields(todo):
         "completed_at",
         "created_at",
         "updated_at",
-        "image",  # 모델 필드 추가로 인해 테스트코드 필드 추가.
+        "image",
+        "user",  # user 필드 추가
     }
     assert set(serializer.data.keys()) == expected_fields
 
@@ -59,11 +55,11 @@ def test_missing_required_field(db):
 
 # save()로 실제 객체 생성
 @pytest.mark.django_db
-def test_create_via_serializer(db):
+def test_create_via_serializer(user):
     """유효한 데이터로 save() 호출 시 DB에 실제 객체가 생성되는지 검증"""
     data = {"name": "새 할일", "exp": 3}
     serializer = TodoSerializer(data=data)
     assert serializer.is_valid()
-    todo = serializer.save()
+    todo = serializer.save(user=user)
     assert todo.pk is not None
     assert Todo.objects.filter(pk=todo.pk).exists()

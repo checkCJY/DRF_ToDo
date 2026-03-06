@@ -7,15 +7,17 @@ from todo.models import Todo
 
 # fixture
 @pytest.fixture
-def client():
-    return APIClient()
+def client(user):
+    client = APIClient()
+    client.force_authenticate(user=user)
+    return client
 
 
 @pytest.fixture
-def create_todos(db):
+def create_todos(db, user):
     """테스트용 Todo 7개 생성 (PAGE_SIZE=3 기준으로 3페이지 구성)"""
     for i in range(1, 8):
-        Todo.objects.create(name=f"Todo {i}", description=f"설명 {i}")
+        Todo.objects.create(name=f"Todo {i}", description=f"설명 {i}", user=user)
 
 
 # 1. 응답 구조 키 검증

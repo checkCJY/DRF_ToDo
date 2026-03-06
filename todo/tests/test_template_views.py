@@ -6,13 +6,10 @@ from ..models import Todo
 
 
 @pytest.fixture
-def client():
-    return Client()
-
-
-@pytest.fixture
-def todo(db):
-    return Todo.objects.create(name="운동", description="스쿼트 50회", exp=10)
+def client(user):
+    c = Client()
+    c.force_login(user)
+    return c
 
 
 # ── TodoListView ──────────────────────────────────────────────

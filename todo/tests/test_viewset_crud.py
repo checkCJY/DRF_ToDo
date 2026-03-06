@@ -8,24 +8,13 @@ from ..models import Todo
 # ViewSet API 기본 URL 상수
 BASE_URL = "/todo/viewsets/view/"
 
-# Fixtures: 테스트용 공통 객체 및 데이터 세팅
-
 
 @pytest.fixture
-def client():
-    """DRF 전용 API 테스트 클라이언트 생성"""
-    return APIClient()
-
-
-@pytest.fixture
-def todo(db):
-    """테스트용 기본 Todo 데이터 1개 생성 (DB 접근 허용)"""
-    return Todo.objects.create(
-        name="운동",
-        description="스쿼트 50회",
-        complete=False,
-        exp=10,
-    )
+def client(user):
+    """인증된 DRF 전용 API 테스트 클라이언트 생성"""
+    client = APIClient()
+    client.force_authenticate(user=user)
+    return client
 
 
 # ViewSet CRUD 검증 테스트 함수들
@@ -39,9 +28,6 @@ def test_list(client, todo):
     assert res.status_code == 200
 
     data = res.json()
-    # CustomPageNumberPagination 적용으로 응답은 dict 형태
-    # assert isinstance(data, list)
-    # assert len(data) >= 1
     assert isinstance(data, dict)
     assert "data" in data
     assert len(data["data"]) >= 1
