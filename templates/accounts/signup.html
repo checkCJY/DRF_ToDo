@@ -1,4 +1,8 @@
+{% extends "auth_base.html" %}
 {% load static %}
+{% block title %}회원가입{% endblock %}
+{% block content %}
+
 <h2>회원가입</h2>
 
 <input id="username" placeholder="username">
@@ -6,9 +10,10 @@
 <input id="password2" placeholder="password 확인" type="password">
 
 <button id="signupBtn">가입</button>
+{% endblock %}
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!--항상 이 코드는 CDN 다음에 등장-->
+{% block scripts %}
+<!--항상 이 코드는 CDN 다음에 등장, CDN base로 이동함.-->
 <script src="{% static 'todo/api.js' %}"></script>
 
 <script>
@@ -36,3 +41,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+{% endblock %}

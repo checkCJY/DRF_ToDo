@@ -1,12 +1,30 @@
+{% extends "auth_base.html" %}
 {% load static %}
 
-<h2>로그인 (STEP1: 세션 로그인)</h2>
+{% block title %}로그인{% endblock %}
 
-<input id="username" placeholder="username">
-<input id="password" placeholder="password" type="password">
-<button id="loginBtn">로그인</button>
+{% block content %}
+<!-- 로그인 화면 카드 영역 -->
+<section class="auth-card">
+  <h2>로그인</h2>
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- 사용자 이름 입력 -->
+  <input id="username" placeholder="username">
+
+  <!-- 비밀번호 입력 -->
+  <input id="password" placeholder="password" type="password">
+
+  <!-- 로그인 버튼 -->
+  <button id="loginBtn">로그인</button>
+
+  <!-- 회원가입 페이지 이동 링크 -->
+  <p style="margin-top:12px;">
+    아직 계정이 없나요? <a href="/signup-page/">회원가입</a>
+  </p>
+</section>
+{% endblock %}
+
+{% block scripts %}
 <!--항상 이 코드는 CDN 다음에 등장-->
 <script src="{% static 'todo/api.js' %}"></script>
 
@@ -37,3 +55,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+{% endblock %}

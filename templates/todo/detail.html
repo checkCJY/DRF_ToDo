@@ -22,8 +22,9 @@
   <button class="todoDelete">삭제</button>
   <button class="todoHome">홈으로</button>
 </div>
+{% endblock %}
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{% block scripts %}
 <script src="{% static 'todo/api.js' %}"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
