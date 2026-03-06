@@ -85,6 +85,19 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 8️⃣ 템플릿 구조 정리
 
+##### **login/signup Page**
+
+<img src="docs/screenshots/08/08_login.png" width="700"/>
+<img src="docs/screenshots/08/08_signup.png" width="700"/>
+
+##### **CRUD Page**
+
+<img src="docs/screenshots/08/08_create.png" width="700"/>
+<img src="docs/screenshots/08/08_list.png" width="700"/>
+<img src="docs/screenshots/08/08_detail.png" width="700"/>
+<img src="docs/screenshots/08/08_update.png" width="700"/>
+<img src="docs/screenshots/08/08_delete.png" width="700"/>
+
 ### 9️⃣ JWT 인증 도입
 
 ### 🔟 인터랙티브 기능 추가 (Ajax / Axios)
@@ -153,8 +166,11 @@ DRF_todoList/
 ├── todo/                      # Todo 앱
 │   ├── migrations/
 │   ├── tests/
+│   │   ├── conftest.py
 │   │   ├── test_admin.py
+│   │   ├── test_auth.py
 │   │   ├── test_crud.py
+│   │   ├── test_image.py
 │   │   ├── test_model.py
 │   │   ├── test_pagination.py
 │   │   ├── test_serializer.py
@@ -169,8 +185,24 @@ DRF_todoList/
 │   ├── pagination.py
 │   ├── serializers.py
 │   └── urls.py
+├── accounts/                  # 인증 앱
+│   ├── migrations/
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   └── views_page.py
 ├── templates/                 # HTML 템플릿
 │   ├── base.html
+│   ├── auth_base.html
+│   ├── footer.html
+│   ├── header.html
+│   ├── accounts/
+│   │   ├── login.html
+│   │   └── signup.html
 │   └── todo/
 │       ├── create.html
 │       ├── detail.html
@@ -187,9 +219,9 @@ DRF_todoList/
 ├── docs/                      # 문서 및 스크린샷
 │   ├── guide.md
 │   ├── question.md
-│   ├── study.md
 │   └── screenshots/
-│       ├── 01/ ~ 06/
+│       ├── 01/ ~ 08/
+├── study.md
 ├── db.sqlite3
 ├── main.py
 ├── manage.py

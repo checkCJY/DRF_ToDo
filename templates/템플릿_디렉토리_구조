@@ -1,0 +1,13 @@
+templates/
+├── base.html
+├── auth_base.html
+├── header.html
+├── footer.html
+├── accounts/
+│  ├── login.html
+│  └── signup.html
+└── todo/
+   ├── list.html
+   ├── create.html
+   ├── update.html
+   └── detail.html
