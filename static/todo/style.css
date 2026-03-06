@@ -1,0 +1,9 @@
+.no-image {
+    width: 250px;
+    height: 150px;
+    background-color: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+}

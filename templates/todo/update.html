@@ -31,7 +31,7 @@
     {% if todo.image %}
       <img src="{{ todo.image.url }}" alt="todo image" style="max-width:250px; height:auto;">
     {% else %}
-      <p>-</p>
+      <div class="no-image">이미지 없음</div>
     {% endif %}
   </div>
 

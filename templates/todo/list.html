@@ -66,7 +66,7 @@
                     <p><strong>완료 여부:</strong> ${todo.complete}</p>
                     <p><strong>exp:</strong> ${todo.exp}</p>
                     <!-- [Part 6] 이미지 표시 -->
-                    ${todo.image ? `<img src="${todo.image}" style="max-width:200px;">` : ""}
+                    ${todo.image ? `<img src="${todo.image}" style="max-width:200px;">` : "<p>이미지 없음</p>"}
                     <hr>
                 `;
                 div.addEventListener("click", () => {
