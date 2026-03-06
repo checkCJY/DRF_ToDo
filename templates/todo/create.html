@@ -24,6 +24,12 @@
       <input type="number" name="exp" id="exp" min="0">
     </div>
 
+    <!--이미지 업로드 필드-->
+    <div>
+      <label for="image">Image:</label>
+      <input type="file" id="image">
+    </div>
+
     <button type="submit" id="todoCreate">생성</button>
     <button class="todoHome">홈으로</button>
 </div>
@@ -40,23 +46,59 @@ homeBtn.addEventListener("click", () => {
     window.location.href = "{% url 'todo:list' %}";
   });
 
+
+/* Todo 생성 버튼 클릭 이벤트 */
 document.getElementById("todoCreate").addEventListener("click", async () => {
   try {
-    // 기존 API주소 (todo/api/create/를 ViewSet API주소로 변경)
-    const res = await api.post("todo/viewsets/view/", {
-      name: document.getElementById("name").value,
-      description: document.getElementById("description").value,
-      complete: document.getElementById("complete").checked,
-      exp: Number(document.getElementById("exp").value || 0),  // 없으면 0
-    });
+    // 파일 업로드를 포함한 데이터를 서버로 전송할 때 사용
+    const formData = new FormData();
 
+    // 입력된 Todo 데이터를 FormData에 추가
+    formData.append("name", document.getElementById("name").value);
+    formData.append("description", document.getElementById("description").value);
+    formData.append("complete", document.getElementById("complete").checked);
+    formData.append("exp", Number(document.getElementById("exp").value || 0));
+
+    // 이미지 파일 input 요소 가져오기
+    const fileInput = document.getElementById("image");
+
+    // 파일이 선택되어 있으면 FormData에 이미지 추가
+    if (fileInput.files.length > 0) {
+      formData.append("image", fileInput.files[0]);
+    }
+
+    // Todo 생성 API 호출
+    // JSON 대신 FormData 형태로 서버에 전송
+    const res = await api.post("todo/viewsets/view/", formData);
     console.log(res.data);
     window.location.href = "/todo/list/";
 
   } catch (err) {
+
+    // 에러 발생 시 콘솔에 출력
     console.error(err.response?.data || err.message);
-    alert("생성 중 오류가 발생했습니다.");
   }
 });
+
+// 아래 내용은 Part 5까지 했던 기존 코드.
+// document.getElementById("todoCreate").addEventListener("click", async () => {
+//   try {
+
+//     // 기존 API주소 (todo/api/create/를 ViewSet API주소로 변경)
+//     const res = await api.post("todo/viewsets/view/", {
+//       name: document.getElementById("name").value,
+//       description: document.getElementById("description").value,
+//       complete: document.getElementById("complete").checked,
+//       exp: Number(document.getElementById("exp").value || 0),  // 없으면 0
+//     });
+
+//     console.log(res.data);
+//     window.location.href = "/todo/list/";
+
+//   } catch (err) {
+//     console.error(err.response?.data || err.message);
+//     alert("생성 중 오류가 발생했습니다.");
+//   }
+// });
 </script>
 {% endblock %}

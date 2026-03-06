@@ -20,6 +20,7 @@ class TodoSerializer(ModelSerializer):
             "completed_at",
             "created_at",
             "updated_at",
+            "image",
         ]
 
         # 모든 필드를 기본 포함시키고 → 특정 필드만 제외하고 싶을 때
