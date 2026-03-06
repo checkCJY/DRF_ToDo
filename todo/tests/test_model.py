@@ -43,6 +43,20 @@ def test_exp_positive(user):
     assert todo.exp == 100
 
 
+# completed_at 수동 설정 및 저장 검증
+# @pytest.mark.django_db
+# def test_completed_at_manual_set(todo):
+#     from django.utils import timezone
+
+#     now = timezone.now()
+#     todo.completed_at = now
+#     todo.save()
+#     todo.refresh_from_db()
+
+#     assert todo.completed_at is not None
+#     assert todo.completed_at == now
+
+
 # 수정 후
 @pytest.mark.django_db
 def test_completed_at_manual_set(todo):
