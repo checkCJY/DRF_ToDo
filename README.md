@@ -166,8 +166,11 @@ DRF_todoList/
 ├── todo/                      # Todo 앱
 │   ├── migrations/
 │   ├── tests/
+│   │   ├── conftest.py
 │   │   ├── test_admin.py
+│   │   ├── test_auth.py
 │   │   ├── test_crud.py
+│   │   ├── test_image.py
 │   │   ├── test_model.py
 │   │   ├── test_pagination.py
 │   │   ├── test_serializer.py
@@ -182,8 +185,24 @@ DRF_todoList/
 │   ├── pagination.py
 │   ├── serializers.py
 │   └── urls.py
+├── accounts/                  # 인증 앱
+│   ├── migrations/
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   └── views_page.py
 ├── templates/                 # HTML 템플릿
 │   ├── base.html
+│   ├── auth_base.html
+│   ├── footer.html
+│   ├── header.html
+│   ├── accounts/
+│   │   ├── login.html
+│   │   └── signup.html
 │   └── todo/
 │       ├── create.html
 │       ├── detail.html
@@ -200,9 +219,9 @@ DRF_todoList/
 ├── docs/                      # 문서 및 스크린샷
 │   ├── guide.md
 │   ├── question.md
-│   ├── study.md
 │   └── screenshots/
-│       ├── 01/ ~ 06/
+│       ├── 01/ ~ 08/
+├── study.md
 ├── db.sqlite3
 ├── main.py
 ├── manage.py
