@@ -3,7 +3,7 @@ from rest_framework import viewsets  # viewsets 사용을 위해 추가
 from ..models import Todo
 from ..serializers import TodoSerializer
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.pagination import PageNumberPagination
+from todo.pagination import CustomPageNumberPagination
 
 """
 page_size=              : 한 페이지에 기본적으로 보여줄 데이터 개수
@@ -13,7 +13,7 @@ max_page_size           : 사용자가 설정할 수 있는 최대 페이지 크
 
 
 # Todo 목록 페이지네이션 설정
-class TodoListPagination(PageNumberPagination):
+class TodoListPagination(CustomPageNumberPagination):
     page_size = 3
     page_size_query_param = "page_size"
     max_page_size = 50
