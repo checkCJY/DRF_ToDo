@@ -9,6 +9,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("todo/", include("todo.urls")),
     path("", lambda request: redirect("todo:list")),
+    path("", include("accounts.urls")),  # 추가, 회원가입
 ]
 
 # DEBUG일 때만 media 파일을 /media/ (settings) 로 서빙
