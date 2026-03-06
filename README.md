@@ -76,6 +76,13 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 7️⃣ 회원가입 / 로그인 기능 구현
 
+##### **Page**
+
+<img src="docs/screenshots/07/07_signup.png" width="700"/>
+<img src="docs/screenshots/07/07_cookiecheck.png" width="700"/>
+<img src="docs/screenshots/07/07_cookiecheck_another_user.png" width="700"/>
+
+
 ### 8️⃣ 템플릿 구조 정리
 
 ### 9️⃣ JWT 인증 도입
