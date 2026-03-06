@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "todo",
     "rest_framework",
+    "accounts",  # Part 7
 ]
 
 MIDDLEWARE = [
@@ -134,17 +135,39 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # DRF 브라우저용 HTML 화면을 끄고, 무조건 JSON만 응답하게 하는 옵션
 # API 서버만 사용하고, 브라우저에서 DRF 화면 필요 없을 때 (React/모바일 이용)
+# REST_FRAMEWORK = {
+#     # 기본권한 설정: 누구나 API에 접근 가능(개발시 사용)
+#     "DEFAULT_PERMISSION_CLASSES": [
+#         "rest_framework.permissions.AllowAny",
+#     ],
+#     # 기본 페이지네이션 설정
+#     "DEFAULT_PAGINATION_CLASS": "todo.pagination.CustomPageNumberPagination",
+#     "PAGE_SIZE": 3,
+#     # API응답형식
+#     "DEFAULT_RENDERER_CLASSES": [
+#         "rest_framework.renderers.JSONRenderer",
+#         "rest_framework.renderers.BrowsableAPIRenderer",
+#     ],
+#     #
+# }
+
+# Part 7
 REST_FRAMEWORK = {
-    # 기본권한 설정: 누구나 API에 접근 가능(개발시 사용)
+    # 권한: 로그인한 사용자만 API 접근 허용
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
+        "rest_framework.permissions.IsAuthenticated",
     ],
-    # 기본 페이지네이션 설정
+    # 인증: 요청자가 누구인지 확인하는 방식
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",  # 세션 (브라우저)
+        "rest_framework.authentication.BasicAuthentication",  # ID/PW 직접 전달
+    ],
+    # 페이지네이션: 목록 API를 3개씩 나눠서 반환
     "DEFAULT_PAGINATION_CLASS": "todo.pagination.CustomPageNumberPagination",
     "PAGE_SIZE": 3,
-    # API응답형식
+    # 렌더러: 응답 형식 지정
     "DEFAULT_RENDERER_CLASSES": [
-        "rest_framework.renderers.JSONRenderer",
-        "rest_framework.renderers.BrowsableAPIRenderer",
+        "rest_framework.renderers.JSONRenderer",  # JSON (실서비스)
+        "rest_framework.renderers.BrowsableAPIRenderer",  # DRF 웹 UI (개발용)
     ],
 }

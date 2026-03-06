@@ -40,6 +40,10 @@ class TodoCreateView(CreateView):
     template_name = "todo/create.html"
     success_url = reverse_lazy("todo:list")
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 class TodoDetailView(DetailView):
     """특정 Todo의 상세 정보 페이지."""

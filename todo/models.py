@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Todo(models.Model):
@@ -14,6 +15,7 @@ class Todo(models.Model):
     created_at  : 항목이 처음 생성된 시각 (자동 기록)
     updated_at  : 항목이 마지막으로 수정된 시각 (자동 갱신)
     image       : 해당 할 일에 관련한 이미지파일 (추가되었으므로, serializers.py 필드 수정)
+    user        : 기본 장고의 user 이용 (ForeignKey, on_delete=models.CASCADE)
     """
 
     name = models.CharField(max_length=100)
@@ -24,6 +26,8 @@ class Todo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to="todo_images/", blank=True, null=True)
+    # 추가
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="todos")
 
     def __str__(self):
         return self.name

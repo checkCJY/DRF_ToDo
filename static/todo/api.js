@@ -4,6 +4,7 @@
  */
 const api = axios.create({
   baseURL: "/",
+  withCredentials: true,  // 추가해도 기존 코드 영향 없다고함.
 });
 
 /**
@@ -16,6 +17,9 @@ api.interceptors.request.use(config => {
     .split("; ")
     .find(row => row.startsWith("csrftoken="))
     ?.split("=")[1];
+
+    // headers 객체가 없으면 생성
+    config.headers = config.headers || {};
 
   if (csrfToken) {
     config.headers["X-CSRFToken"] = csrfToken;

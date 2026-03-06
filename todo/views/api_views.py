@@ -2,12 +2,21 @@
 from rest_framework import viewsets  # viewsets 사용을 위해 추가
 from ..models import Todo
 from ..serializers import TodoSerializer
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
+from todo.pagination import CustomPageNumberPagination
+
+"""
+page_size=              : 한 페이지에 기본적으로 보여줄 데이터 개수
+page_size_query_param   : URL 쿼리 파라미터로 페이지 크기 변경 가능
+max_page_size           : 사용자가 설정할 수 있는 최대 페이지 크기 제한
+"""
 
 
-class TodoViewSet(viewsets.ModelViewSet):
-    queryset = Todo.objects.all().order_by("-created_at")
-    serializer_class = TodoSerializer
+# Todo 목록 페이지네이션 설정
+class TodoListPagination(CustomPageNumberPagination):
+    page_size = 3
+    page_size_query_param = "page_size"
+    max_page_size = 50
 
 
 """
@@ -21,19 +30,30 @@ ModelViewSet을 사용하면 아래 기능이 자동 생성됩니다
 """
 
 
-# Todo 목록 페이지네이션 설정
-class TodoListPagination(PageNumberPagination):
+class TodoViewSet(viewsets.ModelViewSet):
+    serializer_class = TodoSerializer
+    # 로그인한 사용자만 API 접근 가능
+    permission_classes = [IsAuthenticated]
+    # 페이지네이션 설정 적용
+    pagination_class = TodoListPagination
 
-    page_size = 3
-    page_size_query_param = "page_size"
-    max_page_size = 50
+    # 조회할 queryset 설정
+    def get_queryset(self):
+        # 현재 로그인한 사용자(request.user)의 Todo만 조회
+        # 최신 Todo가 먼저 나오도록 created_at 기준 내림차순 정렬
+        return Todo.objects.filter(user=self.request.user).order_by("-created_at")
+
+    # Todo 생성 시 실행되는 메서드
+    def perform_create(self, serializer):
+        # Todo 생성할 때 현재 로그인한 사용자를 자동으로 user 필드에 저장
+        serializer.save(user=self.request.user)
 
 
-"""
-page_size=              : 한 페이지에 기본적으로 보여줄 데이터 개수
-page_size_query_param   : URL 쿼리 파라미터로 페이지 크기 변경 가능
-max_page_size           : 사용자가 설정할 수 있는 최대 페이지 크기 제한
-"""
+# TodoViewSet 기존코드
+# class TodoViewSet(viewsets.ModelViewSet):
+#     queryset = Todo.objects.all().order_by("-created_at")
+#     serializer_class = TodoSerializer
+
 
 # 아래 내용들은 Viewset 사용으로 인해서 안쓰는 코드
 # 삭제해도 무방하나, 에러발생을 방지하기 위해 남겨둠

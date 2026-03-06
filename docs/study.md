@@ -63,3 +63,39 @@ res.data 수신
 Chrome 개발자 도구가 열려있을 때 DevTools 설정 파일을 찾으려고 자동으로
 /.well-known/appspecific/com.chrome.devtools.json을 요청
 -> Django에 해당 URL이 없으니 404 발생.
+
+
+---
+
+
+현재 코드에서 과한 부분
+
+# 문제가 없으면 username 반환
+return value
+
+# 생성된 user 객체 반환
+return user
+이런 주석은 코드 자체로 명백한 내용이라 실무에서는 오히려 노이즈로 취급됩니다.
+
+실무 기준
+상황	주석 필요 여부
+코드만 봐도 명확한 로직	❌ 불필요
+비즈니스 규칙 / 도메인 지식	✅ 필요
+DRF 같은 프레임워크의 암묵적 동작	✅ 유용
+Public API / 라이브러리	✅ 필수
+팀 내부 코드	팀 컨벤션 따름
+실무에서 가치 있는 주석 예시
+
+def validate_username(self, value):
+    # DRF는 validate_<field_name> 형식의 메서드를 자동으로 호출한다
+    if User.objects.filter(username=value).exists():
+        raise serializers.ValidationError("이미 사용중인 username 입니다.")
+    return value
+DRF 자동 호출 방식 같은 프레임워크의 숨겨진 동작은 처음 보는 사람이 모를 수 있어서 유용합니다.
+
+결론
+지금 코드는 학습/포트폴리오 목적이라면 충분히 좋습니다. 다만 실무 코드에서는:
+
+"왜(Why)" 는 주석으로 → 의도, 비즈니스 규칙, 비직관적 선택
+"무엇(What)" 은 코드 자체로 → 깔끔한 네이밍으로 표현
+이 원칙을 따르는 게 일반적입니다.

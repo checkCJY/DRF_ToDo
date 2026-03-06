@@ -22,6 +22,17 @@ router.register("view", TodoViewSet, basename="todo")
 
 app_name = "todo"
 
+
+"""
+DRF DefaultRouter 자동 생성 URL 이름 (basename="todo")
+todo:todo-list         → GET  /todo/viewsets/view/         (목록 조회)
+todo:todo-list         → POST /todo/viewsets/view/         (생성)
+todo:todo-detail       → GET  /todo/viewsets/view/{pk}/   (단일 조회)
+todo:todo-detail       → PUT  /todo/viewsets/view/{pk}/   (전체 수정)
+todo:todo-detail       → PATCH /todo/viewsets/view/{pk}/  (부분 수정)
+todo:todo-detail       → DELETE /todo/viewsets/view/{pk}/ (삭제)
+"""
+
 urlpatterns = [
     # path("list/", views.todo_list, name="todo_List"), # 첫 테스트용
     # HTML 렌더링 뷰

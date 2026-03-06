@@ -1,0 +1,38 @@
+{% load static %}
+<h2>회원가입</h2>
+
+<input id="username" placeholder="username">
+<input id="password" placeholder="password" type="password">
+<input id="password2" placeholder="password 확인" type="password">
+
+<button id="signupBtn">가입</button>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!--항상 이 코드는 CDN 다음에 등장-->
+<script src="{% static 'todo/api.js' %}"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // 회원가입 버튼 클릭 이벤트
+  document.getElementById("signupBtn").addEventListener("click", async () => {
+    try {
+
+      // 입력창에서 사용자 입력값 가져오기
+      const username  = document.getElementById("username").value;
+      const password  = document.getElementById("password").value;
+      const password2 = document.getElementById("password2").value;
+
+      // 입력한 데이터를 JSON 형태로 서버에 전달
+      await api.post("/api/signup/", { username, password, password2 });
+      alert("회원가입 완료 → 로그인으로 이동");
+      window.location.href = "/login/";
+
+    } catch (err) {
+      console.log(err.response?.data || err.message);
+      alert("회원가입 실패");
+    }
+  });
+
+});
+</script>
