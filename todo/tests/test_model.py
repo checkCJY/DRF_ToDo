@@ -53,17 +53,27 @@ def test_exp_positive(db):
 
 
 # completed_at 수동 설정 및 저장 검증
+# @pytest.mark.django_db
+# def test_completed_at_manual_set(todo):
+#     from django.utils import timezone
+
+#     now = timezone.now()
+#     todo.completed_at = now
+#     todo.save()
+#     todo.refresh_from_db()
+
+#     assert todo.completed_at is not None
+#     assert todo.completed_at == now
+
+
+# 수정 후
 @pytest.mark.django_db
 def test_completed_at_manual_set(todo):
-    from django.utils import timezone
-
-    now = timezone.now()
-    todo.completed_at = now
-    todo.save()
+    todo.complete = True  # complete를 True로 설정
+    todo.save()  # save() 오버라이드가 completed_at을 자동 설정
     todo.refresh_from_db()
 
     assert todo.completed_at is not None
-    assert todo.completed_at == now
 
 
 # description blank=True: 빈 문자열로 생성 허용 검증

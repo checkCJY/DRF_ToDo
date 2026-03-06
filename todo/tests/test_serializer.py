@@ -24,6 +24,7 @@ def test_serializer_fields(todo):
         "completed_at",
         "created_at",
         "updated_at",
+        "image",  # 모델 필드 추가로 인해 테스트코드 필드 추가.
     }
     assert set(serializer.data.keys()) == expected_fields
 
