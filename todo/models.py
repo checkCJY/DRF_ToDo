@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Todo(models.Model):
@@ -12,6 +13,7 @@ class Todo(models.Model):
     completed_at: 완료된 시각 (미완료 상태일 때는 null)
     created_at  : 항목이 처음 생성된 시각 (자동 기록)
     updated_at  : 항목이 마지막으로 수정된 시각 (자동 갱신)
+    image       : 해당 할 일에 관련한 이미지파일 (추가되었으므로, serializers.py 필드 수정)
     """
 
     name = models.CharField(max_length=100)
@@ -21,6 +23,25 @@ class Todo(models.Model):
     completed_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to="todo_images/", blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        """
+        Todo가 저장될 때 complete 상태에 따라 completed_at을 자동으로 관리
+
+        완료 여부(True) 일 때 완료 시간이 없으면 자동저장
+        완료 여부(False) 일 때 완료 시간 있으면 취소로 판단 후 시간제거
+        """
+
+        if self.complete and self.completed_at is None:
+            self.completed_at = timezone.now()
+
+        if not self.complete and self.completed_at is not None:
+            self.completed_at = None
+
+        # 부모 모델(Model)의 원래 save() 오버라이딩 (DB 실제저장)
+        # super()가 없을 경우 커스텀 저장만 적용되므로, 실제로 저장 안됨
+        super().save(*args, **kwargs)

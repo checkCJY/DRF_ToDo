@@ -12,6 +12,10 @@
     <button id="nextBtn">다음</button>
 </div>
 
+<!-- 페이지 크기 선택 -->
+<input id="pageSizeInput" type="number" min="1" max="20" value="3" />
+<button id="pageSizeBtn">적용</button>
+
 <button id="createBtn">Todo 등록하기</button>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{% static 'todo/api.js' %}"></script>
@@ -19,10 +23,24 @@
     document.addEventListener("DOMContentLoaded", function () {
 
         let currentPage = 1;
+        let currentPageSize = 3;  // 기본값
 
         /* 특정 페이지의 Todo 목록을 서버에서 가져오는 함수 */
-        function loadPage(page) {
+        /* function loadPage(page) {
             api.get(`/todo/viewsets/view/?page=${page}`)
+                .then(res => {
+                    const data = res.data;
+                    renderTodos(data.data);
+                    updatePaginationUI(data);
+                    currentPage = data.current_page;
+                })
+                .catch(err => console.error("페이지 로드 실패", err));
+        } */
+
+        /* 수정버전, 사용자가 페이지네이션 갯수 설정가능*/
+        function loadPage(page) {
+            // 기존의 코드와 비교시, 주소 변경된 것을 확인가능.
+            api.get(`/todo/viewsets/view/?page=${page}&page_size=${currentPageSize}`)
                 .then(res => {
                     const data = res.data;
                     renderTodos(data.data);
@@ -47,6 +65,8 @@
                     <p><strong>설명:</strong> ${todo.description}</p>
                     <p><strong>완료 여부:</strong> ${todo.complete}</p>
                     <p><strong>exp:</strong> ${todo.exp}</p>
+                    <!-- [Part 6] 이미지 표시 -->
+                    ${todo.image ? `<img src="${todo.image}" style="max-width:200px;">` : "<p>이미지 없음</p>"}
                     <hr>
                 `;
                 div.addEventListener("click", () => {
@@ -77,6 +97,17 @@
         /* Todo 생성 페이지 이동 */
         document.getElementById("createBtn").addEventListener("click", () => {
             window.location.href = "/todo/create/";
+        });
+
+        /* +추가 페이지 크기 변경 시 1페이지부터 다시 로드 */
+        document.getElementById("pageSizeBtn").addEventListener("click", () => {
+            const val = parseInt(document.getElementById("pageSizeInput").value);
+            if (val >= 1 && val <= 20) {
+                currentPageSize = val;
+                loadPage(1);
+            } else {
+                alert("1에서 20 사이의 숫자를 입력해주세요.");
+            }
         });
 
         /* 페이지 최초 로딩 시 1페이지 데이터 요청 */

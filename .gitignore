@@ -38,3 +38,6 @@ docker-compose.override.yml
 
 # Claude Code
 .claude/
+
+# 미디어 파일 이그노어 추가
+media/
