@@ -85,6 +85,19 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 8️⃣ 템플릿 구조 정리
 
+##### **login/signup Page**
+
+<img src="docs/screenshots/08/08_login.png" width="700"/>
+<img src="docs/screenshots/08/08_signup.png" width="700"/>
+
+##### **CRUD Page**
+
+<img src="docs/screenshots/08/08_create.png" width="700"/>
+<img src="docs/screenshots/08/08_list.png" width="700"/>
+<img src="docs/screenshots/08/08_detail.png" width="700"/>
+<img src="docs/screenshots/08/08_update.png" width="700"/>
+<img src="docs/screenshots/08/08_delete.png" width="700"/>
+
 ### 9️⃣ JWT 인증 도입
 
 ### 🔟 인터랙티브 기능 추가 (Ajax / Axios)
