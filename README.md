@@ -181,79 +181,38 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 ## 📂 프로젝트 구조
 ```
 DRF_todoList/
-├── mysite/                    # Django 프로젝트 설정
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-├── todo/                      # Todo 앱
-│   ├── migrations/
-│   ├── tests/
-│   │   ├── conftest.py
-│   │   ├── test_admin.py
-│   │   ├── test_auth.py
-│   │   ├── test_crud.py
-│   │   ├── test_image.py
-│   │   ├── test_model.py
-│   │   ├── test_pagination.py
-│   │   ├── test_serializer.py
-│   │   ├── test_template_views.py
-│   │   └── test_viewset_crud.py
+├── mysite/                    # Django 프로젝트 설정 (settings, urls 등)
+├── todo/                      # Todo CRUD 앱
 │   ├── views/
-│   │   ├── api_views.py
-│   │   └── templates_views.py
+│   │   ├── api_views.py       # DRF ViewSet 기반 API
+│   │   └── templates_views.py # 템플릿 렌더링 뷰 (CBV)
+│   ├── tests/                 # 테스트 모음
+│   ├── models.py              # Todo 모델 (제목, 내용, 이미지, 완료 여부 등)
+│   ├── serializers.py         # Todo 직렬화
+│   ├── pagination.py          # 커스텀 페이지네이션
 │   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── pagination.py
-│   ├── serializers.py
 │   └── urls.py
-├── accounts/                  # 인증 앱
-│   ├── migrations/
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
+├── accounts/                  # 인증 앱 (회원가입, 로그인, JWT)
+├── interaction/               # 좋아요 / 북마크 / 댓글 앱
+│   ├── tests/                 # Interaction 관련 테스트
+│   ├── models.py              # Like, Bookmark, Comment 모델
 │   ├── serializers.py
-│   ├── tests.py
-│   ├── urls.py
 │   ├── views.py
-│   └── views_page.py
-├── templates/                 # HTML 템플릿
-│   ├── base.html
-│   ├── auth_base.html
-│   ├── footer.html
-│   ├── header.html
-│   ├── accounts/
-│   │   ├── login.html
-│   │   └── signup.html
-│   └── todo/
-│       ├── create.html
-│       ├── detail.html
-│       ├── list.html
-│       ├── todo.html
-│       └── update.html
-├── static/                    # 정적 파일
-│   └── todo/
-│       ├── api.js
-│       ├── style.css
-│       └── todo.html
+│   └── urls.py
+├── templates/                 # HTML 템플릿 (accounts/, todo/)
+├── static/                    # 정적 파일 (JS, CSS)
 ├── media/                     # 업로드된 이미지
-│   └── todo_images/
 ├── docs/                      # 문서 및 스크린샷
 │   ├── guide.md
 │   ├── question.md
-│   └── screenshots/
-│       ├── 01/ ~ 08/
-├── study.md
-├── db.sqlite3
-├── main.py
+│   ├── study.md
+│   ├── interaction_workflow.md  # Interaction 앱 설계 문서
+│   └── screenshots/           # 단계별 스크린샷 (01/ ~ 10/)
 ├── manage.py
-├── pyproject.toml
-├── pytest.ini
+├── pyproject.toml             # 패키지 및 도구 설정 (ruff, pytest 등)
 ├── requirements.txt
 ├── Commit_Rules.md
-└── .pre-commit-config.yaml
+└── .pre-commit-config.yaml    # pre-commit 훅 설정
 ```
 
 ---
