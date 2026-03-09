@@ -10,28 +10,37 @@ from ..models import Todo
 def test_serializer_fields(todo):
     """직렬화 결과에 선언한 필드가 모두 포함되는지 검증"""
     serializer = TodoSerializer(todo)
+    # Step 10: interaction 앱 추가로 새 필드 포함, completed_at/updated_at 제외
     expected_fields = {
         "id",
         "name",
         "description",
         "complete",
         "exp",
-        "completed_at",
-        "created_at",
-        "updated_at",
         "image",
-        "user",  # user 필드 추가
+        "created_at",
+        "user",
+        "username",
+        "like_count",
+        "is_liked",
+        "bookmark_count",
+        "is_bookmarked",
+        "comment_count",
     }
     assert set(serializer.data.keys()) == expected_fields
 
 
 # read_only_fields 검증
 def test_read_only_fields():
-    """created_at, updated_at 은 읽기 전용 필드인지 검증"""
+    """user, username, like_count 등은 읽기 전용 필드인지 검증"""
+    # Step 10: updated_at 필드 제거됨, interaction 관련 필드 read_only 추가
     serializer = TodoSerializer()
     read_only = {name for name, field in serializer.fields.items() if field.read_only}
+    assert "user" in read_only
+    assert "username" in read_only
+    assert "like_count" in read_only
+    assert "is_liked" in read_only
     assert "created_at" in read_only
-    assert "updated_at" in read_only
 
 
 # 유효한 데이터로 is_valid() 통과
