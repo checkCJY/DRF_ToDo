@@ -24,97 +24,107 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 1️⃣ Django 기본 세팅
 
-<img src="docs/screenshots/01/01_check.png" width="700"/>
-<img src="docs/screenshots/01/01_admin.png" width="700"/>
+<img src="docs/screenshots/01/01_check.png" width="500"/>
+<img src="docs/screenshots/01/01_admin.png" width="500"/>
 
 
 ### 2️⃣ Generic View 기반 CRUD
 
 ##### **API 확인**
-<img src="docs/screenshots/02/02_get_api.png" width="700"/>
+<img src="docs/screenshots/02/02_get_api.png" width="500"/>
 
 ##### **CRUD**
-<img src="docs/screenshots/02/02_create.png" width="700"/>
-<img src="docs/screenshots/02/02_get_detail.png" width="700"/>
-<img src="docs/screenshots/02/02_update.png" width="700"/>
-<img src="docs/screenshots/02/02_delete.png" width="700"/>
-<img src="docs/screenshots/02/02_delete_check.png" width="700"/>
+<img src="docs/screenshots/02/02_create.png" width="500"/>
+<img src="docs/screenshots/02/02_get_detail.png" width="500"/>
+<img src="docs/screenshots/02/02_update.png" width="500"/>
+<img src="docs/screenshots/02/02_delete.png" width="500"/>
+<img src="docs/screenshots/02/02_delete_check.png" width="500"/>
 
 
 ### 3️⃣ DRF ViewSets로 API 전환
 ##### **CRUD**
-<img src="docs/screenshots/03/03_Create_viewsets.png" width="700"/>
-<img src="docs/screenshots/03/03_list_viewsets.png" width="700"/>
-<img src="docs/screenshots/03/03_Retrieve_viewsets.png" width="700"/>
-<img src="docs/screenshots/03/03_Patch_viewsets.png" width="700"/>
-<img src="docs/screenshots/03/03_Delete1_viewsets.png" width="700"/>
-<img src="docs/screenshots/03/03_Delete2_viewsets.png" width="700"/>
+<img src="docs/screenshots/03/03_Create_viewsets.png" width="500"/>
+<img src="docs/screenshots/03/03_list_viewsets.png" width="500"/>
+<img src="docs/screenshots/03/03_Retrieve_viewsets.png" width="500"/>
+<img src="docs/screenshots/03/03_Patch_viewsets.png" width="500"/>
+<img src="docs/screenshots/03/03_Delete1_viewsets.png" width="500"/>
+<img src="docs/screenshots/03/03_Delete2_viewsets.png" width="500"/>
 
 ### 4️⃣ 환경 변수 설정 (.env)
 
-<img src="docs/screenshots/04/04_env.png" width="700"/>
+<img src="docs/screenshots/04/04_env.png" width="500"/>
 
 ### 5️⃣ Pagination 추가
 
-<img src="docs/screenshots/05/05_pagenation1.png" width="700"/>
-<img src="docs/screenshots/05/05_pagenation2.png" width="700"/>
-<img src="docs/screenshots/05/05_pagenation3.png" width="700"/>
+<img src="docs/screenshots/05/05_pagenation1.png" width="500"/>
+<img src="docs/screenshots/05/05_pagenation2.png" width="500"/>
+<img src="docs/screenshots/05/05_pagenation3.png" width="500"/>
 
 ### 6️⃣ 이미지 업로드 기능 추가
 
 ##### **API**
 
-<img src="docs/screenshots/06/06_이미지파일_추가.png" width="700"/>
-<img src="docs/screenshots/06/06_image_fales.png" width="700"/>
-<img src="docs/screenshots/06/06_image_True.png" width="700"/>
+<img src="docs/screenshots/06/06_이미지파일_추가.png" width="500"/>
+<img src="docs/screenshots/06/06_image_fales.png" width="500"/>
+<img src="docs/screenshots/06/06_image_True.png" width="500"/>
 
 ##### **Page**
 
-<img src="docs/screenshots/06/06_image_page.png" width="700"/>
-<img src="docs/screenshots/06/06_image_update.png" width="700"/>
+<img src="docs/screenshots/06/06_image_page.png" width="500"/>
+<img src="docs/screenshots/06/06_image_update.png" width="500"/>
 
 
 ### 7️⃣ 회원가입 / 로그인 기능 구현
 
 ##### **Page**
 
-<img src="docs/screenshots/07/07_signup.png" width="700"/>
-<img src="docs/screenshots/07/07_cookiecheck.png" width="700"/>
-<img src="docs/screenshots/07/07_cookiecheck_another_user.png" width="700"/>
+<img src="docs/screenshots/07/07_signup.png" width="500"/>
+<img src="docs/screenshots/07/07_cookiecheck.png" width="500"/>
+<img src="docs/screenshots/07/07_cookiecheck_another_user.png" width="500"/>
 
 
 ### 8️⃣ 템플릿 구조 정리
 
 ##### **login/signup Page**
 
-<img src="docs/screenshots/08/08_login.png" width="700"/>
-<img src="docs/screenshots/08/08_signup.png" width="700"/>
+<img src="docs/screenshots/08/08_login.png" width="500"/>
+<img src="docs/screenshots/08/08_signup.png" width="500"/>
 
 ##### **CRUD Page**
 
-<img src="docs/screenshots/08/08_create.png" width="700"/>
-<img src="docs/screenshots/08/08_list.png" width="700"/>
-<img src="docs/screenshots/08/08_detail.png" width="700"/>
-<img src="docs/screenshots/08/08_update.png" width="700"/>
-<img src="docs/screenshots/08/08_delete.png" width="700"/>
+<img src="docs/screenshots/08/08_create.png" width="500"/>
+<img src="docs/screenshots/08/08_list.png" width="500"/>
+<img src="docs/screenshots/08/08_detail.png" width="500"/>
+<img src="docs/screenshots/08/08_update.png" width="500"/>
+<img src="docs/screenshots/08/08_delete.png" width="500"/>
 
 ### 9️⃣ JWT 인증 도입
 
 ##### ** Header 변경 **
-<img src="docs/screenshots/09/09_login_header.png" width="700"/>
+<img src="docs/screenshots/09/09_login_header.png" width="500"/>
 
 ##### ** localStorage **
 
-<img src="docs/screenshots/09/09_localStorage_access.png" width="700"/>
-<img src="docs/screenshots/09/09_localStorage_refresh.png" width="700"/>
+<img src="docs/screenshots/09/09_localStorage_access.png" width="500"/>
+<img src="docs/screenshots/09/09_localStorage_refresh.png" width="500"/>
 
 ##### ** JWT 인증 전환 **
 
-<img src="docs/screenshots/09/09_JWT_settings.png" width="700"/>
-<img src="docs/screenshots/09/09_JWT_API.png" width="700"/>
-<img src="docs/screenshots/09/09_jwt_io.png" width="700"/>
+<img src="docs/screenshots/09/09_JWT_settings.png" width="500"/>
+<img src="docs/screenshots/09/09_JWT_API.png" width="500"/>
+<img src="docs/screenshots/09/09_jwt_io.png" width="500"/>
 
 ### 🔟 인터랙티브 기능 추가 (Ajax / Axios)
+
+##### ** Page **
+
+<img src="docs/screenshots/10/10_liketest.png" width="500"/>
+<img src="docs/screenshots/10/10_로그아웃이후_북마크시도.png" width="500"/>
+##### ** develop Tool **
+
+<img src="docs/screenshots/10/10_like.png" width="500"/>
+<img src="docs/screenshots/10/10_bookmark.png" width="500"/>
+<img src="docs/screenshots/10/10_context.png" width="500"/>
 
 ### 1️⃣1️⃣ CSS 및 UI 정리
 
@@ -171,79 +181,38 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 ## 📂 프로젝트 구조
 ```
 DRF_todoList/
-├── mysite/                    # Django 프로젝트 설정
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-├── todo/                      # Todo 앱
-│   ├── migrations/
-│   ├── tests/
-│   │   ├── conftest.py
-│   │   ├── test_admin.py
-│   │   ├── test_auth.py
-│   │   ├── test_crud.py
-│   │   ├── test_image.py
-│   │   ├── test_model.py
-│   │   ├── test_pagination.py
-│   │   ├── test_serializer.py
-│   │   ├── test_template_views.py
-│   │   └── test_viewset_crud.py
+├── mysite/                    # Django 프로젝트 설정 (settings, urls 등)
+├── todo/                      # Todo CRUD 앱
 │   ├── views/
-│   │   ├── api_views.py
-│   │   └── templates_views.py
+│   │   ├── api_views.py       # DRF ViewSet 기반 API
+│   │   └── templates_views.py # 템플릿 렌더링 뷰 (CBV)
+│   ├── tests/                 # 테스트 모음
+│   ├── models.py              # Todo 모델 (제목, 내용, 이미지, 완료 여부 등)
+│   ├── serializers.py         # Todo 직렬화
+│   ├── pagination.py          # 커스텀 페이지네이션
 │   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── pagination.py
-│   ├── serializers.py
 │   └── urls.py
-├── accounts/                  # 인증 앱
-│   ├── migrations/
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
+├── accounts/                  # 인증 앱 (회원가입, 로그인, JWT)
+├── interaction/               # 좋아요 / 북마크 / 댓글 앱
+│   ├── tests/                 # Interaction 관련 테스트
+│   ├── models.py              # Like, Bookmark, Comment 모델
 │   ├── serializers.py
-│   ├── tests.py
-│   ├── urls.py
 │   ├── views.py
-│   └── views_page.py
-├── templates/                 # HTML 템플릿
-│   ├── base.html
-│   ├── auth_base.html
-│   ├── footer.html
-│   ├── header.html
-│   ├── accounts/
-│   │   ├── login.html
-│   │   └── signup.html
-│   └── todo/
-│       ├── create.html
-│       ├── detail.html
-│       ├── list.html
-│       ├── todo.html
-│       └── update.html
-├── static/                    # 정적 파일
-│   └── todo/
-│       ├── api.js
-│       ├── style.css
-│       └── todo.html
+│   └── urls.py
+├── templates/                 # HTML 템플릿 (accounts/, todo/)
+├── static/                    # 정적 파일 (JS, CSS)
 ├── media/                     # 업로드된 이미지
-│   └── todo_images/
 ├── docs/                      # 문서 및 스크린샷
 │   ├── guide.md
 │   ├── question.md
-│   └── screenshots/
-│       ├── 01/ ~ 08/
-├── study.md
-├── db.sqlite3
-├── main.py
+│   ├── study.md
+│   ├── interaction_workflow.md  # Interaction 앱 설계 문서
+│   └── screenshots/           # 단계별 스크린샷 (01/ ~ 10/)
 ├── manage.py
-├── pyproject.toml
-├── pytest.ini
+├── pyproject.toml             # 패키지 및 도구 설정 (ruff, pytest 등)
 ├── requirements.txt
 ├── Commit_Rules.md
-└── .pre-commit-config.yaml
+└── .pre-commit-config.yaml    # pre-commit 훅 설정
 ```
 
 ---

@@ -75,10 +75,8 @@ class TestTodoOwnership:
     def test_unauthenticated_list(self, client):
         res = client.get(reverse("todo:todo-list"))
 
-        # 세션방식 인증 없으면 403
-        # JWT는 인증없으면 401
-        # assert res.status_code == 403
-        assert res.status_code == 401
+        # Step 10: AllowAny로 변경되어 비인증 사용자도 목록 조회 가능
+        assert res.status_code == 200
 
     def test_unauthenticated_create(self, client):
         res = client.post(
@@ -94,12 +92,13 @@ class TestTodoOwnership:
         # assert res.status_code == 403
         assert res.status_code == 401
 
-    def test_authenticated_list_only_mine(self, api_client, todo, another_user_todo):
+    def test_authenticated_list_shows_all(self, api_client, todo, another_user_todo):
         res = api_client.get(reverse("todo:todo-list"))
         assert res.status_code == 200
         ids = [item["id"] for item in res.data["data"]]
+        # Step 10: queryset이 전체 공개로 변경되어 다른 유저 Todo도 보임
         assert todo.id in ids
-        assert another_user_todo.id not in ids
+        assert another_user_todo.id in ids
 
     def test_create_auto_assign_user(self, api_client, user):
         res = api_client.post(
@@ -112,17 +111,20 @@ class TestTodoOwnership:
         assert res.status_code == 201
         assert res.data["user"] == user.id
 
-    def test_cannot_access_other_user_todo(self, api_client, another_user_todo):
+    def test_can_access_other_user_todo(self, api_client, another_user_todo):
+        # Step 10: queryset 전체 공개로 변경되어 다른 유저 Todo 조회 가능
         url = reverse("todo:todo-detail", kwargs={"pk": another_user_todo.pk})
         res = api_client.get(url)
-        assert res.status_code == 404
+        assert res.status_code == 200
 
-    def test_cannot_update_other_user_todo(self, api_client, another_user_todo):
+    def test_can_update_other_user_todo(self, api_client, another_user_todo):
+        # Step 10: queryset 전체 공개로 변경되어 다른 유저 Todo 수정 가능
         url = reverse("todo:todo-detail", kwargs={"pk": another_user_todo.pk})
         res = api_client.patch(url, {"name": "수정시도"})
-        assert res.status_code == 404
+        assert res.status_code == 200
 
-    def test_cannot_delete_other_user_todo(self, api_client, another_user_todo):
+    def test_can_delete_other_user_todo(self, api_client, another_user_todo):
+        # Step 10: queryset 전체 공개로 변경되어 다른 유저 Todo 삭제 가능
         url = reverse("todo:todo-detail", kwargs={"pk": another_user_todo.pk})
         res = api_client.delete(url)
-        assert res.status_code == 404
+        assert res.status_code == 204

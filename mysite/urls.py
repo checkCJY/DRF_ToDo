@@ -8,6 +8,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("todo/", include("todo.urls")),
+    path("interaction/", include("interaction.urls")),  # Part 10
     path("", lambda request: redirect("todo:list")),
     path("", include("accounts.urls")),  # 추가, 회원가입
 ]

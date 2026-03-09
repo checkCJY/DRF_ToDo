@@ -28,9 +28,8 @@ def test_pagination_response_keys(client, create_todos):
     data = response.json()
 
     assert response.status_code == 200
+    # Step 10: list() 커스텀 응답 구조 기준 (page_size, total_count 없음)
     assert "data" in data
-    assert "page_size" in data
-    assert "total_count" in data
     assert "page_count" in data
     assert "current_page" in data
     assert "next" in data
@@ -50,25 +49,27 @@ def test_pagination_page_size(client, create_todos):
 # 3. next / previous URL 검증
 @pytest.mark.django_db
 def test_pagination_first_page(client, create_todos):
-    """첫 페이지는 previous가 null이어야 함"""
+    """첫 페이지는 previous가 False이어야 함"""
     response = client.get("/todo/viewsets/view/?page=1")
     data = response.json()
 
-    assert data["previous"] is None
-    assert data["next"] is not None
+    # Step 10: next/previous가 URL 대신 boolean으로 변경됨
+    assert data["previous"] is False
+    assert data["next"] is True
 
 
 @pytest.mark.django_db
 def test_pagination_last_page(client, create_todos):
-    """마지막 페이지는 next가 null이어야 함"""
+    """마지막 페이지는 next가 False이어야 함"""
     response = client.get("/todo/viewsets/view/?page=1")
     last_page = response.json()["page_count"]
 
     response = client.get(f"/todo/viewsets/view/?page={last_page}")
     data = response.json()
 
-    assert data["next"] is None
-    assert data["previous"] is not None
+    # Step 10: next/previous가 URL 대신 boolean으로 변경됨
+    assert data["next"] is False
+    assert data["previous"] is True
 
 
 # 4. page_size 쿼리 파라미터 동작 검증
@@ -90,14 +91,18 @@ def test_pagination_out_of_range(client, create_todos):
     assert response.status_code == 404
 
 
-# 6. total_count 정확성 검증
+# 6. page_count 정확성 검증
 @pytest.mark.django_db
-def test_pagination_total_count(client, create_todos):
-    """total_count가 실제 DB 데이터 수와 일치하는지 검증"""
+def test_pagination_page_count(client, create_todos):
+    """page_count가 데이터 수 / page_size(3) 올림 값과 일치하는지 검증"""
+    # Step 10: total_count 키 없음 → page_count로 검증
+    import math
+
     response = client.get("/todo/viewsets/view/?page=1")
     data = response.json()
 
-    assert data["total_count"] == Todo.objects.count()
+    expected_page_count = math.ceil(Todo.objects.count() / 3)
+    assert data["page_count"] == expected_page_count
 
 
 # 7. page_size=all 파라미터 동작 검증
