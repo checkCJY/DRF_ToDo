@@ -93,3 +93,22 @@ class SessionLogoutAPIView(APIView):
     def post(self, request):
         logout(request)
         return Response({"detail": "로그아웃"}, status=status.HTTP_200_OK)
+
+
+class MeAPIView(APIView):
+    """서버에 현재 로그인 사용자의 정보를 반환하는 API"""
+
+    # → 로그인(인증)된 사용자만 이 API에 접근할 수 있도록 설정
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Response로 JSON 형태의 사용자 정보를 반환
+        # 장고 기본 User를 사용
+        # → JWT 토큰 인증이 성공하면 자동으로 채워진다.
+        return Response(
+            {
+                "id": request.user.id,
+                "username": request.user.username,
+                "email": request.user.email,
+            }
+        )

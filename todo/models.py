@@ -16,6 +16,7 @@ class Todo(models.Model):
     updated_at  : 항목이 마지막으로 수정된 시각 (자동 갱신)
     image       : 해당 할 일에 관련한 이미지파일 (추가되었으므로, serializers.py 필드 수정)
     user        : 기본 장고의 user 이용 (ForeignKey, on_delete=models.CASCADE)
+    is_public   : 공개 여부에 관해서
     """
 
     name = models.CharField(max_length=100)
@@ -28,6 +29,8 @@ class Todo(models.Model):
     image = models.ImageField(upload_to="todo_images/", blank=True, null=True)
     # 추가
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="todos")
+    # Part 12
+    is_public = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

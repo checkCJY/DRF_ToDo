@@ -4,6 +4,7 @@ from .views_page import LoginPageView, SignupPageView
 
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView  # JWT
+from .views import MeAPIView  # Part 12
 
 
 # app 네임은 왜 사용을 안할까? 템플릿 사용을 아직 안해서?
@@ -22,4 +23,5 @@ urlpatterns = [
     path("login/", LoginPageView.as_view(), name="page-login"),
     # JWT 사용으로 인해 미사용코드
     # path("api/login/", SessionLoginAPIView.as_view(), name="api-login"),
+    path("me/", MeAPIView.as_view()),
 ]

@@ -1,24 +1,9 @@
-# DRF APIView 사용
-# 클래스 기반 API를 만들 때 사용
 from rest_framework.views import APIView
-
-# API 응답을 JSON 형태로 반환하기 위한 클래스
 from rest_framework.response import Response
-
-# 로그인한 사용자만 접근하도록 제한하는 권한 클래스
 from rest_framework.permissions import IsAuthenticated
-
-# 객체가 없을 경우 자동으로 404 반환
 from django.shortcuts import get_object_or_404
-
-
-# Todo 모델 import
 from todo.models import Todo
-
-# 좋아요 / 북마크 / 댓글 모델 import
 from .models import TodoLike, TodoBookmark, TodoComment
-
-# 댓글 serializer import
 from .serializers import TodoCommentSerializer
 
 
@@ -137,6 +122,10 @@ class TodoCommentListAPIView(APIView):
     댓글 목록 조회 API
     GET /interaction/comment/<todo_id>/
     """
+
+    # Part 12 추가
+    # 로그인한 사용자만 이 API에 접근 가능하도록 설정
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, todo_id):
         # Todo 객체 조회

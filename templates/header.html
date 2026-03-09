@@ -23,7 +23,7 @@
 
 <hr>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async() => {
     const ACCESS_KEY = "access_token";
     const REFRESH_KEY = "refresh_token";
     const access = localStorage.getItem("access_token");
@@ -34,7 +34,53 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginLink = document.getElementById("loginLink");
     const signupLink = document.getElementById("signupLink");
 
-    // 토큰 있으면: 로그아웃/환영 표시 + 로그인/회원가입 숨김
+    if (access) {
+        try {
+            /*
+            로그인한 사용자 정보 가져오기
+            /me/ API를 호출하여 현재 로그인한 사용자 정보를 조회
+            (MeAPIView에서 id, username, email을 반환)
+            */
+            const res = await window.api.get("/me/");   // 서버에 사용자 정보 요청
+            const user = res.data;  // 응답 데이터에서 사용자 정보 추출
+            welcomeEl.textContent = `${user.username}님 환영합니다`;
+
+            welcomeEl.style.display = "inline-block";
+            logoutBtn.style.display = "inline-block";
+            loginLink.style.display = "none";
+            signupLink.style.display = "none";
+
+            logoutBtn.addEventListener("click", () => {
+                localStorage.removeItem(ACCESS_KEY);
+                localStorage.removeItem(REFRESH_KEY);
+                window.location.href = "/login/";
+            });
+
+        } catch (err) {
+            /*
+                사용자 정보 조회 실패 처리
+                토큰이 만료되었거나 인증 오류가 발생했을 가능성
+            */
+            console.error("유저 정보 불러오기 실패", err);    // 콘솔에 오류 출력 (디버깅용)
+            // 인증 상태 초기화
+            localStorage.removeItem(ACCESS_KEY);
+            localStorage.removeItem(REFRESH_KEY);
+            window.location.href = "/login/";
+            return;
+        }
+    }else { // 토큰 없으면: 로그인/회원가입 표시 + 로그아웃/환영 숨김
+        welcomeEl.style.display = "none";
+        logoutBtn.style.display = "none";
+        loginLink.style.display = "inline-block";
+        signupLink.style.display = "inline-block";
+    }
+
+});
+</script>
+
+
+<!-- Part 12 이전코드
+// 토큰 있으면: 로그아웃/환영 표시 + 로그인/회원가입 숨김
     if (access) {
     welcomeEl.textContent = "로그인됨";
     welcomeEl.style.display = "inline-block";
@@ -53,5 +99,4 @@ document.addEventListener("DOMContentLoaded", () => {
     loginLink.style.display = "inline-block";
     signupLink.style.display = "inline-block";
     }
-});
-</script>
+-->
