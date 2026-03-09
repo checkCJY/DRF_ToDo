@@ -24,97 +24,107 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 1️⃣ Django 기본 세팅
 
-<img src="docs/screenshots/01/01_check.png" width="700"/>
-<img src="docs/screenshots/01/01_admin.png" width="700"/>
+<img src="docs/screenshots/01/01_check.png" width="500"/>
+<img src="docs/screenshots/01/01_admin.png" width="500"/>
 
 
 ### 2️⃣ Generic View 기반 CRUD
 
 ##### **API 확인**
-<img src="docs/screenshots/02/02_get_api.png" width="700"/>
+<img src="docs/screenshots/02/02_get_api.png" width="500"/>
 
 ##### **CRUD**
-<img src="docs/screenshots/02/02_create.png" width="700"/>
-<img src="docs/screenshots/02/02_get_detail.png" width="700"/>
-<img src="docs/screenshots/02/02_update.png" width="700"/>
-<img src="docs/screenshots/02/02_delete.png" width="700"/>
-<img src="docs/screenshots/02/02_delete_check.png" width="700"/>
+<img src="docs/screenshots/02/02_create.png" width="500"/>
+<img src="docs/screenshots/02/02_get_detail.png" width="500"/>
+<img src="docs/screenshots/02/02_update.png" width="500"/>
+<img src="docs/screenshots/02/02_delete.png" width="500"/>
+<img src="docs/screenshots/02/02_delete_check.png" width="500"/>
 
 
 ### 3️⃣ DRF ViewSets로 API 전환
 ##### **CRUD**
-<img src="docs/screenshots/03/03_Create_viewsets.png" width="700"/>
-<img src="docs/screenshots/03/03_list_viewsets.png" width="700"/>
-<img src="docs/screenshots/03/03_Retrieve_viewsets.png" width="700"/>
-<img src="docs/screenshots/03/03_Patch_viewsets.png" width="700"/>
-<img src="docs/screenshots/03/03_Delete1_viewsets.png" width="700"/>
-<img src="docs/screenshots/03/03_Delete2_viewsets.png" width="700"/>
+<img src="docs/screenshots/03/03_Create_viewsets.png" width="500"/>
+<img src="docs/screenshots/03/03_list_viewsets.png" width="500"/>
+<img src="docs/screenshots/03/03_Retrieve_viewsets.png" width="500"/>
+<img src="docs/screenshots/03/03_Patch_viewsets.png" width="500"/>
+<img src="docs/screenshots/03/03_Delete1_viewsets.png" width="500"/>
+<img src="docs/screenshots/03/03_Delete2_viewsets.png" width="500"/>
 
 ### 4️⃣ 환경 변수 설정 (.env)
 
-<img src="docs/screenshots/04/04_env.png" width="700"/>
+<img src="docs/screenshots/04/04_env.png" width="500"/>
 
 ### 5️⃣ Pagination 추가
 
-<img src="docs/screenshots/05/05_pagenation1.png" width="700"/>
-<img src="docs/screenshots/05/05_pagenation2.png" width="700"/>
-<img src="docs/screenshots/05/05_pagenation3.png" width="700"/>
+<img src="docs/screenshots/05/05_pagenation1.png" width="500"/>
+<img src="docs/screenshots/05/05_pagenation2.png" width="500"/>
+<img src="docs/screenshots/05/05_pagenation3.png" width="500"/>
 
 ### 6️⃣ 이미지 업로드 기능 추가
 
 ##### **API**
 
-<img src="docs/screenshots/06/06_이미지파일_추가.png" width="700"/>
-<img src="docs/screenshots/06/06_image_fales.png" width="700"/>
-<img src="docs/screenshots/06/06_image_True.png" width="700"/>
+<img src="docs/screenshots/06/06_이미지파일_추가.png" width="500"/>
+<img src="docs/screenshots/06/06_image_fales.png" width="500"/>
+<img src="docs/screenshots/06/06_image_True.png" width="500"/>
 
 ##### **Page**
 
-<img src="docs/screenshots/06/06_image_page.png" width="700"/>
-<img src="docs/screenshots/06/06_image_update.png" width="700"/>
+<img src="docs/screenshots/06/06_image_page.png" width="500"/>
+<img src="docs/screenshots/06/06_image_update.png" width="500"/>
 
 
 ### 7️⃣ 회원가입 / 로그인 기능 구현
 
 ##### **Page**
 
-<img src="docs/screenshots/07/07_signup.png" width="700"/>
-<img src="docs/screenshots/07/07_cookiecheck.png" width="700"/>
-<img src="docs/screenshots/07/07_cookiecheck_another_user.png" width="700"/>
+<img src="docs/screenshots/07/07_signup.png" width="500"/>
+<img src="docs/screenshots/07/07_cookiecheck.png" width="500"/>
+<img src="docs/screenshots/07/07_cookiecheck_another_user.png" width="500"/>
 
 
 ### 8️⃣ 템플릿 구조 정리
 
 ##### **login/signup Page**
 
-<img src="docs/screenshots/08/08_login.png" width="700"/>
-<img src="docs/screenshots/08/08_signup.png" width="700"/>
+<img src="docs/screenshots/08/08_login.png" width="500"/>
+<img src="docs/screenshots/08/08_signup.png" width="500"/>
 
 ##### **CRUD Page**
 
-<img src="docs/screenshots/08/08_create.png" width="700"/>
-<img src="docs/screenshots/08/08_list.png" width="700"/>
-<img src="docs/screenshots/08/08_detail.png" width="700"/>
-<img src="docs/screenshots/08/08_update.png" width="700"/>
-<img src="docs/screenshots/08/08_delete.png" width="700"/>
+<img src="docs/screenshots/08/08_create.png" width="500"/>
+<img src="docs/screenshots/08/08_list.png" width="500"/>
+<img src="docs/screenshots/08/08_detail.png" width="500"/>
+<img src="docs/screenshots/08/08_update.png" width="500"/>
+<img src="docs/screenshots/08/08_delete.png" width="500"/>
 
 ### 9️⃣ JWT 인증 도입
 
 ##### ** Header 변경 **
-<img src="docs/screenshots/09/09_login_header.png" width="700"/>
+<img src="docs/screenshots/09/09_login_header.png" width="500"/>
 
 ##### ** localStorage **
 
-<img src="docs/screenshots/09/09_localStorage_access.png" width="700"/>
-<img src="docs/screenshots/09/09_localStorage_refresh.png" width="700"/>
+<img src="docs/screenshots/09/09_localStorage_access.png" width="500"/>
+<img src="docs/screenshots/09/09_localStorage_refresh.png" width="500"/>
 
 ##### ** JWT 인증 전환 **
 
-<img src="docs/screenshots/09/09_JWT_settings.png" width="700"/>
-<img src="docs/screenshots/09/09_JWT_API.png" width="700"/>
-<img src="docs/screenshots/09/09_jwt_io.png" width="700"/>
+<img src="docs/screenshots/09/09_JWT_settings.png" width="500"/>
+<img src="docs/screenshots/09/09_JWT_API.png" width="500"/>
+<img src="docs/screenshots/09/09_jwt_io.png" width="500"/>
 
 ### 🔟 인터랙티브 기능 추가 (Ajax / Axios)
+
+##### ** Page **
+
+<img src="docs/screenshots/10/10_liketest.png" width="500"/>
+<img src="docs/screenshots/10/10_로그아웃이후_북마크시도.png" width="500"/>
+##### ** develop Tool **
+
+<img src="docs/screenshots/10/10_like.png" width="500"/>
+<img src="docs/screenshots/10/10_bookmark.png" width="500"/>
+<img src="docs/screenshots/10/10_context.png" width="500"/>
 
 ### 1️⃣1️⃣ CSS 및 UI 정리
 
