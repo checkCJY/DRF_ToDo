@@ -24,21 +24,39 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
-
+        const LOGIN_PAGE_URL = "/login/";
         let currentPage = 1;
         let currentPageSize = 3;  // 기본값
 
-        /* 특정 페이지의 Todo 목록을 서버에서 가져오는 함수 */
-        /* function loadPage(page) {
-            api.get(`/todo/viewsets/view/?page=${page}`)
-                .then(res => {
-                    const data = res.data;
-                    renderTodos(data.data);
-                    updatePaginationUI(data);
-                    currentPage = data.current_page;
-                })
-                .catch(err => console.error("페이지 로드 실패", err));
-        } */
+        if (!window.api) { // window.api 존재 확인
+            console.error("window.api가 없습니다. base.html에서 static/js/api.js가 로드됐는지 확인하세요.");
+            alert("설정 오류: api.js가 로드되지 않았습니다.");
+            return;
+        }
+
+        // 이 로직은 이해가 안됨, JWT access 토큰이 없으면 바로 로그인??
+        const access = localStorage.getItem(ACCESS_KEY);
+        if (!access) {
+            console.log("access_token 없음 → 로그인 이동");
+            window.location.href = LOGIN_PAGE_URL;
+            return;
+        }
+
+        // ✅ [추가됨] 401/403 처리 로직을 함수로 분리 (기존 interceptor 대체)
+        // ✅ 응답에서 401/403이면 로그인으로 (3단계용: refresh 자동화는 5단계에서)
+        function handleAuthError(err) {
+            const status = err.response?.status;
+            if (status === 401 || status === 403) {
+                console.log("인증 실패(401/403) → 토큰 삭제 후 로그인 이동");
+
+                // ✅ [추가됨] 토큰 정리(선택)
+                localStorage.removeItem("ACCESS_KEY");
+                localStorage.removeItem("REFRESH_KEY");
+
+                window.location.href = LOGIN_PAGE_URL;
+            }
+            return Promise.reject(err);
+        }
 
         /* 수정버전, 사용자가 페이지네이션 갯수 설정가능*/
         function loadPage(page) {
@@ -50,7 +68,11 @@
                     updatePaginationUI(data);
                     currentPage = data.current_page || page;
                 })
-                .catch(err => console.error("페이지 로드 실패", err));
+                .catch(err => {
+                    // 인증 오류면 handleAuthError로 로그인 이동 처리
+                    handleAuthError(err).catch(() => {}); // 인증 실패 처리
+                    console.error("페이지 로드 실패", err.response?.data || err.message); // 로그 더 자세히
+                });
         }
 
         /* Todo 목록을 HTML에 렌더링하는 함수 */

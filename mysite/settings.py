@@ -187,6 +187,7 @@ REST_FRAMEWORK = {
 # 만료 시간/헤더 타입
 SIMPLE_JWT = {
     # access는 짧게(보안), refresh는 길게(편의)
+    # access = 보통 5분, refresh = 보통 1일 기간을 설정한다.
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=300),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=365),
 
