@@ -2,16 +2,19 @@
 {% load static %}
 {% block title %}회원가입{% endblock %}
 {% block content %}
-
+<section class="auth-card">
 <h2>회원가입</h2>
 
 <input id="username" placeholder="username">
 <input id="password" placeholder="password" type="password">
 <input id="password2" placeholder="password 확인" type="password">
+<button id="signupBtn">회원가입</button>
+
 
 <p style="margin-top:12px;">
     이미 계정이 있나요? <a href="/login/">로그인</a>
-  </p>
+</p>
+</section>
 {% endblock %}
 
 {% block scripts %}
