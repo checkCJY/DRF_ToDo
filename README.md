@@ -131,15 +131,17 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ##### ** CSS 적용 확인 **
 
-<img src="docs/screenshots/11/11_signup.png.png" width="500"/>
-<img src="docs/screenshots/11/11_login.png.png" width="500"/>
+<img src="docs/screenshots/11/11_signup.png" width="500"/>
+<img src="docs/screenshots/11/11_login.png" width="500"/>
 
 <img src="docs/screenshots/11/11_create.png.png" width="500"/>
-<img src="docs/screenshots/11/11_list.png.png" width="500"/>
-<img src="docs/screenshots/11/11_detail.png.png" width="500"/>
-<img src="docs/screenshots/11/11_update.png.png" width="500"/>
+<img src="docs/screenshots/11/11_list.png" width="500"/>
+<img src="docs/screenshots/11/11_detail.png" width="500"/>
+<img src="docs/screenshots/11/11_update.png" width="500"/>
 
 ### 1️⃣2️⃣ 다른 사용자 글 조회 기능
+
+<img src="docs/screenshots/12/12_비로그인상태_목록조회와 is_public 확인.png" width="500"/>
 
 ### 1️⃣3️⃣ SQLite → PostgreSQL 전환
 
