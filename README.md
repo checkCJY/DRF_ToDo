@@ -100,6 +100,20 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 9️⃣ JWT 인증 도입
 
+##### ** Header 변경 **
+<img src="docs/screenshots/09/09_login_header.png" width="700"/>
+
+##### ** localStorage **
+
+<img src="docs/screenshots/09/09_localStorage_access.png" width="700"/>
+<img src="docs/screenshots/09/09_localStorage_refresh.png" width="700"/>
+
+##### ** JWT 인증 전환 **
+
+<img src="docs/screenshots/09/09_JWT_settings.png" width="700"/>
+<img src="docs/screenshots/09/09_JWT_API.png" width="700"/>
+<img src="docs/screenshots/09/09_jwt_io.png" width="700"/>
+
 ### 🔟 인터랙티브 기능 추가 (Ajax / Axios)
 
 ### 1️⃣1️⃣ CSS 및 UI 정리
