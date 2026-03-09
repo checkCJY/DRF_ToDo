@@ -6,67 +6,52 @@
 	</h1>
 
     <div>
-        {% if request.user.is_authenticated %}
-            <span>{{ request.user.username }}님 환영합니다</span>
+        <!-- ✅ [수정됨] 변경: JWT 기준으로 "JS가 토글"할 영역을 미리 만들어둠 -->
+        <!-- ✅ JWT 기준: JS로 토글할 영역 -->
+        <span id="authWelcome" style="display:none;"></span>
+        <!-- ✅ [추가됨] 환영/상태 표시 -->
 
-            <button id="logoutBtn">로그아웃</button>
+        <button id="logoutBtn" style="display:none;">로그아웃</button>
+        <!-- ✅ [수정됨] 기본 숨김 처리(display:none) -->
 
-        {% else %}
-            <a href="/login/">로그인</a>
-            <a href="/signup-page/">회원가입</a>
-        {% endif %}
+
+        <!-- ✅ [추가됨] 로그인/회원가입 링크도 JS로 토글 -->
+        <a id="loginLink" href="/login/" style="display:none;">로그인</a>
+        <a id="signupLink" href="/signup-page/" style="display:none;">회원가입</a>
     </div>
 </div>
 
 <hr>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    // 로그아웃 버튼 요소 가져오기
-    const btn = document.getElementById("logoutBtn");
+    const ACCESS_KEY = "access_token";
+    const REFRESH_KEY = "refresh_token";
+    const access = localStorage.getItem("access_token");
 
-    // 버튼이 없는 페이지에서는 코드 실행 중단
-    if (!btn) return;
+    // 토글 대상 DOM 요소들
+    const welcomeEl = document.getElementById("authWelcome");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const loginLink = document.getElementById("loginLink");
+    const signupLink = document.getElementById("signupLink");
 
-    // CSRF 토큰을 쿠키에서 가져오는 함수
-    // Django에서 POST 요청 시 CSRF 검증에 필요
-    function getCSRF() {
-        return document.cookie
-            .split("; ")
-            .find(row => row.startsWith("csrftoken="))
-            ?.split("=")[1];
-    }
+    // 토큰 있으면: 로그아웃/환영 표시 + 로그인/회원가입 숨김
+    if (access) {
+    welcomeEl.textContent = "로그인됨";
+    welcomeEl.style.display = "inline-block";
+    logoutBtn.style.display = "inline-block";
+    loginLink.style.display = "none";
+    signupLink.style.display = "none";
 
-
-    // 로그아웃 버튼 클릭 이벤트
-    btn.addEventListener("click", async () => {
-        try {
-
-            // axios POST 요청 → 로그아웃 API 호출
-            await axios.post("/api/logout/", {}, {
-
-                // 세션 쿠키(sessionid)를 요청에 포함
-                withCredentials: true,
-
-                // Django CSRF 보호를 통과하기 위한 헤더
-                headers: {
-                    "X-CSRFToken": getCSRF()
-                }
-            });
-
-            // 로그아웃 성공 후 로그인 페이지로 이동
-            window.location.href = "/login/";
-
-            // 다른 페이지로 이동하고 싶으면 아래 사용 가능
-            // window.location.href = "/todo/list/";
-
-        } catch (err) {
-
-            // 오류 발생 시 콘솔에 출력
-            console.log(err.response?.data || err.message);
-
-            // 사용자에게 실패 메시지 표시
-            alert("로그아웃 실패");
-        }
+    logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem(ACCESS_KEY);
+        localStorage.removeItem(REFRESH_KEY);
+        window.location.href = "/login/";
     });
+    } else { // 토큰 없으면: 로그인/회원가입 표시 + 로그아웃/환영 숨김
+    welcomeEl.style.display = "none";
+    logoutBtn.style.display = "none";
+    loginLink.style.display = "inline-block";
+    signupLink.style.display = "inline-block";
+    }
 });
 </script>

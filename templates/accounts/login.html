@@ -2,22 +2,15 @@
 {% load static %}
 
 {% block title %}로그인{% endblock %}
-https://github.com/checkCJY/DRF_ToDo/pull/8/conflict?name=templates%252Faccounts%252Fsignup.html&base_oid=fe622f5ef5c84228704f5c3c4e0b2711296ff1c0&head_oid=5b4d4fd6d13b882dd3cdbb34128734325b9f6ede
 {% block content %}
 <!-- 로그인 화면 카드 영역 -->
 <section class="auth-card">
   <h2>로그인</h2>
 
-  <!-- 사용자 이름 입력 -->
   <input id="username" placeholder="username">
-
-  <!-- 비밀번호 입력 -->
   <input id="password" placeholder="password" type="password">
-
-  <!-- 로그인 버튼 -->
   <button id="loginBtn">로그인</button>
 
-  <!-- 회원가입 페이지 이동 링크 -->
   <p style="margin-top:12px;">
     아직 계정이 없나요? <a href="/signup-page/">회원가입</a>
   </p>
@@ -25,12 +18,22 @@ https://github.com/checkCJY/DRF_ToDo/pull/8/conflict?name=templates%252Faccounts
 {% endblock %}
 
 {% block scripts %}
-<!--항상 이 코드는 CDN 다음에 등장-->
-<script src="{% static 'todo/api.js' %}"></script>
 
+<!--
+[수정됨] 기존: const api = axios.create({ baseURL: "/"});
+  const api = axios.create({ baseURL: "/" });
+  ❌ [삭제됨] window.api 공통 인스턴스로 통일
 
+  [추가됨] 공통 axios 인스턴스(window.api) 존재 여부 체크
+  - auth_base.html에서 static/js/api.js 로드가 되어 있어야 함
+-->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  if (!window.api) {
+    console.error("window.api가 없습니다. auth_base.html에서 static/js/api.js가 로드됐는지 확인하세요.");
+    alert("설정 오류: api.js가 로드되지 않았습니다.");
+    return; // [추가됨] api 없으면 여기서 중단
+  }
 
 
   // 로그인 버튼 클릭 이벤트
@@ -38,11 +41,35 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
 
       // 입력창에서 username과 password 값 가져오기
-      const username = document.getElementById("username").value;
+      const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value;
 
-      // 사용자 입력 데이터를 서버로 전송
-      await api.post("/api/login/", { username, password });
+      // 입력값 간단한 검증
+      if (!username || !password) {
+        alert("username / password를 입력해주세요.");
+        return;
+      }
+
+      // 이전 토큰 제거 (충돌 방지)
+      localStorage.removeItem(ACCESS_KEY);
+      localStorage.removeItem(REFRESH_KEY);
+
+      // 사용자 입력 데이터를 서버로 전송, 기존코드
+      // await api.post("/api/login/", { username, password });
+      const res = await window.api.post("/api/login/", { username, password });
+
+      const access = res.data?.access;
+      const refresh = res.data?.refresh;
+
+      if (!access || !refresh) {
+        console.log("토큰 응답이 이상함:", res.data);
+        alert("로그인 응답에 토큰이 없습니다. 서버 응답을 확인하세요.");
+        return;
+      }
+
+      // 토큰 저장
+      localStorage.setItem(ACCESS_KEY, access);
+      localStorage.setItem(REFRESH_KEY, refresh);
 
       alert("로그인 성공");
       window.location.href = "/todo/list/";

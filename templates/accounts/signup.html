@@ -9,33 +9,59 @@
 <input id="password" placeholder="password" type="password">
 <input id="password2" placeholder="password 확인" type="password">
 
-<button id="signupBtn">가입</button>
+<p style="margin-top:12px;">
+    이미 계정이 있나요? <a href="/login/">로그인</a>
+  </p>
 {% endblock %}
 
 {% block scripts %}
-<!--항상 이 코드는 CDN 다음에 등장, CDN base로 이동함.-->
-<script src="{% static 'todo/api.js' %}"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
   // 회원가입 버튼 클릭 이벤트
   document.getElementById("signupBtn").addEventListener("click", async () => {
+
+    // 공통 axios 인스턴스(window.api) 존재 여부 체크
+    if (!window.api) {
+      console.error("window.api가 없습니다. auth_base.html에서 static/js/api.js가 로드됐는지 확인하세요.");
+      alert("설정 오류: api.js가 로드되지 않았습니다.");
+      return; // ✅ [추가됨] api 없으면 중단
+    }
+
     try {
 
       // 입력창에서 사용자 입력값 가져오기
-      const username  = document.getElementById("username").value;
+      const username  = document.getElementById("username").value.trim();
       const password  = document.getElementById("password").value;
       const password2 = document.getElementById("password2").value;
 
+      // [추가됨] 빈 값 체크
+      if (!username || !password || !password2) {
+        alert("모든 값을 입력해주세요.");
+        return;
+      }
+
+      // [추가됨] 비밀번호 일치 체크
+      if (password !== password2) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return;
+      }
+
       // 입력한 데이터를 JSON 형태로 서버에 전달
-      await api.post("/api/signup/", { username, password, password2 });
+      await window.api.post("/api/signup/", { username, password, password2 });
+
       alert("회원가입 완료 → 로그인으로 이동");
       window.location.href = "/login/";
-
     } catch (err) {
       console.log(err.response?.data || err.message);
-      alert("회원가입 실패");
+
+      const msg =
+        err.response?.data?.detail ||
+        err.response?.data?.username?.[0] ||
+        err.response?.data?.password?.[0] ||
+        "회원가입 실패";
+      alert(msg);
     }
   });
 
