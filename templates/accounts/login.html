@@ -21,7 +21,7 @@
 
 <!--
 [수정됨] 기존: const api = axios.create({ baseURL: "/"});
-  const api = axios.create({ baseURL: "/" }); 
+  const api = axios.create({ baseURL: "/" });
   ❌ [삭제됨] window.api 공통 인스턴스로 통일
 
   [추가됨] 공통 axios 인스턴스(window.api) 존재 여부 체크
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 사용자 입력 데이터를 서버로 전송, 기존코드
       // await api.post("/api/login/", { username, password });
-      const res = await window.api.post("/api/login/", { username, password }); 
+      const res = await window.api.post("/api/login/", { username, password });
 
       const access = res.data?.access;
       const refresh = res.data?.refresh;

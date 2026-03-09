@@ -8,12 +8,12 @@
     <div>
         <!-- ✅ [수정됨] 변경: JWT 기준으로 "JS가 토글"할 영역을 미리 만들어둠 -->
         <!-- ✅ JWT 기준: JS로 토글할 영역 -->
-        <span id="authWelcome" style="display:none;"></span> 
+        <span id="authWelcome" style="display:none;"></span>
         <!-- ✅ [추가됨] 환영/상태 표시 -->
-        
-        <button id="logoutBtn" style="display:none;">로그아웃</button> 
+
+        <button id="logoutBtn" style="display:none;">로그아웃</button>
         <!-- ✅ [수정됨] 기본 숨김 처리(display:none) -->
-        
+
 
         <!-- ✅ [추가됨] 로그인/회원가입 링크도 JS로 토글 -->
         <a id="loginLink" href="/login/" style="display:none;">로그인</a>
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     signupLink.style.display = "none";
 
     logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem(ACCESS_KEY); 
+        localStorage.removeItem(ACCESS_KEY);
         localStorage.removeItem(REFRESH_KEY);
         window.location.href = "/login/";
     });

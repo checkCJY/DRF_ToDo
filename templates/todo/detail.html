@@ -83,9 +83,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 인증 문제면 로그인으로
       handleAuthError(err).catch(() => {});
-      console.error("삭제 실패:", err.response?.data || err.message); 
+      console.error("삭제 실패:", err.response?.data || err.message);
       // 로그 상세화
-  
+
       alert("삭제 중 오류가 발생했습니다.");
       }
 

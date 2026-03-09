@@ -74,10 +74,10 @@ class TestAuth:
 class TestTodoOwnership:
     def test_unauthenticated_list(self, client):
         res = client.get(reverse("todo:todo-list"))
-        
+
         # 세션방식 인증 없으면 403
         # JWT는 인증없으면 401
-        #assert res.status_code == 403
+        # assert res.status_code == 403
         assert res.status_code == 401
 
     def test_unauthenticated_create(self, client):
@@ -88,10 +88,10 @@ class TestTodoOwnership:
                 "exp": 0,
             },
         )
-        
+
         # 세션방식 인증 없으면 403
         # JWT는 인증없으면 401
-        #assert res.status_code == 403
+        # assert res.status_code == 403
         assert res.status_code == 401
 
     def test_authenticated_list_only_mine(self, api_client, todo, another_user_todo):

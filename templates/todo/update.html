@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const todoId = "{{ todo.id }}";
   const LOGIN_PAGE_URL = "/login/";
 
-  if (!window.api) { 
+  if (!window.api) {
     console.error("window.api가 없습니다. base.html에서 static/js/api.js가 로드됐는지 확인하세요.");
     alert("설정 오류: api.js가 로드되지 않았습니다.");
     return;
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // 인증 문제면 로그인으로 보내기
       handleAuthError(err).catch(() => {});
       console.error("수정 실패:", err.response?.data || err.message);
-      alert("수정 실패: 콘솔/네트워크 확인"); 
+      alert("수정 실패: 콘솔/네트워크 확인");
     }
   });
 

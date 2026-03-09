@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 import environ  # 환경변수 추가
-from datetime import timedelta  
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -156,17 +156,15 @@ MEDIA_ROOT = BASE_DIR / "media"
 REST_FRAMEWORK = {
     # 인증: 요청자가 누구인지 확인하는 방식
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",    # JWT 우선
+        "rest_framework_simplejwt.authentication.JWTAuthentication",  # JWT 우선
         # 2) 전환기 안전장치(선택): 기존 세션도 허용
         #    모든 프론트가 JWT로 바뀐 후 제거 가능
         "rest_framework.authentication.SessionAuthentication",
     ],
-
-     # 권한: 로그인한 사용자만 API 접근 허용
+    # 권한: 로그인한 사용자만 API 접근 허용
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
-
     # 페이지네이션: 목록 API를 3개씩 나눠서 반환
     "DEFAULT_PAGINATION_CLASS": "todo.pagination.CustomPageNumberPagination",
     "PAGE_SIZE": 3,
@@ -177,7 +175,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-# Part 7 
+# Part 7
 # # 인증: 요청자가 누구인지 확인하는 방식
 #     "DEFAULT_AUTHENTICATION_CLASSES": [
 #         "rest_framework.authentication.SessionAuthentication",  # 세션 (브라우저)
@@ -190,10 +188,8 @@ SIMPLE_JWT = {
     # access = 보통 5분, refresh = 보통 1일 기간을 설정한다.
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=300),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=365),
-
     # Authorization: Bearer <token>
     "AUTH_HEADER_TYPES": ("Bearer",),
-
     # (5~6단계에서 다룰 것들 - 지금은 False로 두고 시작 권장)
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
