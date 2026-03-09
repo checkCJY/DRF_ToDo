@@ -42,6 +42,27 @@ def another_user_todo(db, another_user):
     )
 
 
+# Part 12
+@pytest.fixture
+def private_todo(db, user):
+    return Todo.objects.create(
+        name="비공개 Todo",
+        exp=0,
+        user=user,
+        is_public=False,
+    )
+
+
+@pytest.fixture
+def another_private_todo(db, another_user):
+    return Todo.objects.create(
+        name="비공개 Todo",
+        exp=0,
+        user=another_user,
+        is_public=False,
+    )
+
+
 # 수정
 # @pytest.fixture
 # def image_file():

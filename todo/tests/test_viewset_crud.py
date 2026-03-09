@@ -1,6 +1,8 @@
 import pytest
 from rest_framework.test import APIClient
 from ..models import Todo
+from django.urls import reverse
+
 
 # 실행 명령어
 # pytest todo/tests/test_viewset_crud.py
@@ -108,3 +110,16 @@ def test_full_update_put(client, todo):
     assert todo.description == "접영 30분"
     assert todo.complete is True
     assert todo.exp == 20
+
+
+# Part 12: is_public=False 글은 작성자 본인만 보이는지 검증
+@pytest.mark.django_db
+def test_private_todo_visibility(api_client, private_todo, another_private_todo):
+    """본인의 비공개 Todo는 보이고, 다른 유저의 비공개 Todo는 보이지 않아야 함"""
+    res = api_client.get(reverse("todo:todo-list"))
+    assert res.status_code == 200
+    ids = [item["id"] for item in res.data["data"]]
+    # 본인의 비공개 Todo는 보임
+    assert private_todo.id in ids
+    # 다른 유저의 비공개 Todo는 보이지 않음
+    assert another_private_todo.id not in ids

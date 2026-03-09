@@ -26,6 +26,7 @@ def test_serializer_fields(todo):
         "bookmark_count",
         "is_bookmarked",
         "comment_count",
+        "is_public",  # Part 12 is_public 추가.
     }
     assert set(serializer.data.keys()) == expected_fields
 
