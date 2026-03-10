@@ -82,8 +82,8 @@ class TestTodoOwnership:
     def test_unauthenticated_list(self, client):
         res = client.get(reverse("todo:todo-list"))
 
-        # Step 10: AllowAny로 변경되어 비인증 사용자도 목록 조회 가능
-        assert res.status_code == 200
+        # IsAuthenticated 설정으로 비인증 사용자는 401
+        assert res.status_code == 401
 
     def test_unauthenticated_create(self, client):
         res = client.post(
@@ -128,10 +128,10 @@ class TestTodoOwnership:
         # Step 10: queryset 전체 공개로 변경되어 다른 유저 Todo 수정 가능
         url = reverse("todo:todo-detail", kwargs={"pk": another_user_todo.pk})
         res = api_client.patch(url, {"name": "수정시도"})
-        assert res.status_code == 200
+        assert res.status_code == 403  # 수정 ViewSet의 인증때문에 200에서 수정.
 
     def test_can_delete_other_user_todo(self, api_client, another_user_todo):
         # Step 10: queryset 전체 공개로 변경되어 다른 유저 Todo 삭제 가능
         url = reverse("todo:todo-detail", kwargs={"pk": another_user_todo.pk})
         res = api_client.delete(url)
-        assert res.status_code == 204
+        assert res.status_code == 403  # 수정 ViewSet의 인증때문에 200에서 수정.
