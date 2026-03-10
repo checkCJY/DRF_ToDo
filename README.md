@@ -145,6 +145,14 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 1️⃣3️⃣ SQLite → PostgreSQL 전환
 
+
+<img src="docs/screenshots/13/13_sqlite3_backup.png" width="500"/>
+<img src="docs/screenshots/13/13_postgreSQL_migrate.png" width="500"/>
+<img src="docs/screenshots/13/13_shell_check.png" width="500"/>
+<img src="docs/screenshots/13/13_postgreSQL_DBeaver.png" width="500"/>
+<img src="docs/screenshots/13/13_DBeaver_check.png" width="500"/>
+
+
 ### 1️⃣4️⃣ 웹 크롤링 → CSV / JSONL 데이터 정제
 
 ### 1️⃣5️⃣ DBeaver → DRF 데이터 적재

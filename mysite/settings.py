@@ -83,10 +83,23 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        "PORT": os.environ.get("POSTGRES_PORT"),
+        "ATOMIC_REQUESTS": True,
     }
 }
 
@@ -135,23 +148,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# DRF 브라우저용 HTML 화면을 끄고, 무조건 JSON만 응답하게 하는 옵션
-# API 서버만 사용하고, 브라우저에서 DRF 화면 필요 없을 때 (React/모바일 이용)
-# REST_FRAMEWORK = {
-#     # 기본권한 설정: 누구나 API에 접근 가능(개발시 사용)
-#     "DEFAULT_PERMISSION_CLASSES": [
-#         "rest_framework.permissions.AllowAny",
-#     ],
-#     # 기본 페이지네이션 설정
-#     "DEFAULT_PAGINATION_CLASS": "todo.pagination.CustomPageNumberPagination",
-#     "PAGE_SIZE": 3,
-#     # API응답형식
-#     "DEFAULT_RENDERER_CLASSES": [
-#         "rest_framework.renderers.JSONRenderer",
-#         "rest_framework.renderers.BrowsableAPIRenderer",
-#     ],
-#     #
-# }
 
 # Part 7
 REST_FRAMEWORK = {
@@ -176,12 +172,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-# Part 7
-# # 인증: 요청자가 누구인지 확인하는 방식
-#     "DEFAULT_AUTHENTICATION_CLASSES": [
-#         "rest_framework.authentication.SessionAuthentication",  # 세션 (브라우저)
-#         "rest_framework.authentication.BasicAuthentication",  # ID/PW 직접 전달
-#     ],
 
 # 만료 시간/헤더 타입
 SIMPLE_JWT = {
