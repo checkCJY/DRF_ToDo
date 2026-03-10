@@ -1,7 +1,5 @@
-# GitHub Actions 워크플로우 이름
 name: Django CI
 
-# 실행 트리거: main, develop, feature/* 브랜치에 push 또는 PR 발생 시 실행
 on:
   push:
     branches: [ "main", "develop", "feature/*" ]
@@ -10,24 +8,43 @@ on:
 
 jobs:
   build:
-    # GitHub에서 제공하는 Ubuntu 환경에서 실행
     runs-on: ubuntu-latest
-    # 추가, github actions 통과를 위한 env 키값
+    # CI 환경변수 설정 (민감한 값은 Secrets, DB는 임시 환경이라 하드코딩)
     env:
       DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      POSTGRES_DB: mysite_db
+      POSTGRES_USER: mysite_user
+      POSTGRES_PASSWORD: mysite_password
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+
+    # CI 환경에서 PostgreSQL 컨테이너 실행
+    services:
+      db:
+        image: postgres:16
+        env:
+          POSTGRES_DB: mysite_db
+          POSTGRES_USER: mysite_user
+          POSTGRES_PASSWORD: mysite_password
+        ports:
+          - 5432:5432
+        # 컨테이너가 완전히 준비될 때까지 대기
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     strategy:
-      # 최대 4개 작업 동시 실행 가능
       max-parallel: 4
       matrix:
-        # 테스트할 Python 버전
         python-version: ["3.12.3"]
 
     steps:
     # 1. 저장소 코드를 워크플로우 환경으로 가져오기
     - uses: actions/checkout@v4
 
-    # 2. 지정한 Python 버전 설치 (v5: 캐싱 개선, 안정화 버전)
+    # 2. 지정한 Python 버전 설치
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
