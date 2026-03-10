@@ -69,6 +69,13 @@ class TestAuth:
         res = api_client.post("/api/logout/")
         assert res.status_code == 200
 
+    def test_other_user_cannot_look(self, api_client, client):
+        login_res = api_client.get("/me/")
+        notlogin_res = client.get("/me/")
+
+        assert login_res.status_code == 200
+        assert notlogin_res.status_code == 401
+
 
 @pytest.mark.django_db
 class TestTodoOwnership:

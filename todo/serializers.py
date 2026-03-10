@@ -80,7 +80,7 @@ class TodoSerializer(ModelSerializer):
             "bookmark_count",
             "is_bookmarked",
             "comment_count",
-            # "is_public",
+            "is_public",  # Part 12
         ]
         read_only_fields = ["user"]
 

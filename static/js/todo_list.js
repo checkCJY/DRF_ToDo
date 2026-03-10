@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         like: (todoId) => `/interaction/like/${todoId}/`,
         bookmark: (todoId) => `/interaction/bookmark/${todoId}/`,
         comment: (todoId) => `/interaction/comment/${todoId}/`,
+        commentList: (todoId) => `/interaction/comment/${todoId}/list/`, // Part 12 추가
     };
 
     /* =========================================================
@@ -80,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>설명:</strong> ${todo.description ?? ""}</p>
             <p><strong>완료 여부:</strong> ${todo.complete ? "완료" : "미완료"}</p>
             <p><strong>exp:</strong> ${todo.exp ?? 0}</p>
+            <p><strong>작성자:</strong> ${todo.username ?? ""}</p>
             ${imageSrc ? `<img src="${imageSrc}" style="max-width:200px;">` : ""}
 
             <!-- 액션 버튼 영역 -->
@@ -143,7 +145,48 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         todos.forEach(todo => {
-            container.appendChild(createTodoCard(todo));
+            const div = createTodoCard(todo);
+            container.appendChild(div);
+            loadComments(todo.id, div);
+        });
+    }
+
+    async function loadComments(todoId, card) {
+
+        // Todo 카드 내부에 있는 댓글 표시 영역(.comment-list)을 찾음
+        const listEl = card.querySelector(".comment-list");
+
+        // 만약 댓글 표시 영역이 없다면 함수 종료
+        // (DOM 구조가 바뀌거나 오류가 있을 때 방어 코드)
+        if (!listEl) return;
+
+        // 서버에 댓글 목록 요청
+        // 예: /interaction/comment/{todoId}/list/
+        const res = await window.api.get(InteractionAPI.commentList(todoId));
+
+        // 서버 응답에서 댓글 데이터 가져오기
+        const comments = res.data || [];
+
+        // 기존 댓글 목록 초기화
+        listEl.innerHTML = "";
+
+        // 댓글 배열을 순회하면서 화면에 댓글 생성
+        comments.forEach(c => {
+
+            // 댓글 DOM 요소 생성
+            const item = document.createElement("div");
+            item.className = "comment-item";
+            item.style.padding = "6px 0";
+
+            // 댓글 내용 표시
+            // username → 작성자
+            // content → 댓글 내용
+            item.innerHTML = `<div style="font-size:14px;">
+            <strong>${c.username ?? ""}</strong> : ${c.content ?? ""}
+            </div>`;
+
+            // 댓글을 댓글 목록 영역에 추가
+            listEl.appendChild(item);
         });
     }
 

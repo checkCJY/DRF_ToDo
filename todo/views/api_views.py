@@ -10,6 +10,8 @@ from interaction.models import TodoLike, TodoBookmark, TodoComment
 from rest_framework.decorators import action  # Part 10 추가
 from rest_framework.response import Response
 
+from django.db.models import Q
+
 """
 page_size=              : 한 페이지에 기본적으로 보여줄 데이터 개수
 page_size_query_param   : URL 쿼리 파라미터로 페이지 크기 변경 가능
@@ -69,9 +71,20 @@ class TodoViewSet(viewsets.ModelViewSet):
     좋아요·북마크·댓글 액션은 IsAuthenticated 필요.
     """
 
-    queryset = Todo.objects.all().order_by("-created_at")
     serializer_class = TodoSerializer
     permission_classes = [AllowAny]  # 목록·상세는 비인증 허용
+
+    def get_queryset(self):
+        user = self.request.user  # 현재 로그인한 사용자
+        check_user = self.request.user.is_authenticated
+        # 비로그인이면 Q(is_public=True) 만 실행
+        if not check_user:
+            return Todo.objects.filter(Q(is_public=True)).order_by("-created_at")
+        # 로그인이면 Q(is_public=True) | Q(user=user) 실행
+        else:
+            return Todo.objects.filter(Q(is_public=True) | Q(user=user)).order_by(
+                "-created_at"
+            )
 
     def list(self, request, *args, **kwargs):
         """
@@ -194,8 +207,9 @@ class TodoViewSet(viewsets.ModelViewSet):
         )
 
     def perform_create(self, serializer):
+        #
         if not self.request.user.is_authenticated:
             from rest_framework.exceptions import NotAuthenticated
 
             raise NotAuthenticated()
-        serializer.save(user=self.request.user)
+        serializer.save(user=self.request.user, is_public=True)

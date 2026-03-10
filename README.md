@@ -141,6 +141,8 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 1️⃣2️⃣ 다른 사용자 글 조회 기능
 
+<img src="docs/screenshots/12/12_비로그인상태_목록조회와 is_public 확인.png" width="500"/>
+
 ### 1️⃣3️⃣ SQLite → PostgreSQL 전환
 
 ### 1️⃣4️⃣ 웹 크롤링 → CSV / JSONL 데이터 정제
