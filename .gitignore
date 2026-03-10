@@ -12,7 +12,7 @@ __pycache__/
 # 데이터베이스 파일 제외 (SQLite 등)
 db.sqlite3
 *.sqlite3
-
+*.sqlite3.*
 # Django 마이그레이션 캐시 제외
 **/migrations/*.pyc
 !**/migrations/__init__.py
@@ -41,3 +41,8 @@ docker-compose.override.yml
 
 # 미디어 파일 이그노어 추가
 media/
+
+
+# 그 외 예외처리 파일
+# 유저 비밀번호 해시값 포함된 민감데이터
+data.json
