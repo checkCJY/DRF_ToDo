@@ -20,7 +20,94 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ---
 
-## 🧭 전체 개발 로드맵
+## 🧭 전체 개발 로드맵  
+
+### 1️⃣ Django 기본 세팅  
+
+### 2️⃣ Generic View 기반 CRUD  
+- 기능별 5개 `APIView` 클래스 분리
+- `TodoSerializer`: 모델↔JSON 변환, 데이터 검증
+- `views/` 패키지로 분리, `GitHub Actions CI` 설정
+  
+### 3️⃣ DRF ViewSets로 API 전환  
+- APIView 5개 → `ModelViewSet` 1개로 리팩토링
+- `DefaultRouter`로 URL 자동 등록
+  
+### 4️⃣ 환경 변수 설정 (.env)  
+- `django-environ`으로 `SECRET_KEY`를 `.env`로 분리
+- `.gitignore` 등록, `.env.example`로 문서화
+  
+### 5️⃣ Pagination 추가  
+- `PageNumberPagination` 상속 → `get_paginated_response()` 오버라이딩
+- 응답: `{data, total_count, page_count, current_page, next, previous}`
+- 템플릿 for문 → JS DOM 생성 방식으로 전환
+  
+### 6️⃣ 이미지 업로드 기능 추가  
+- `ImageField`, `MEDIA_URL/ROOT` 설정
+- JSON → FormData 전환 (multipart/form-data)
+- `save()` 오버라이딩: `complete=True` 시 `completed_at` 자동 기록
+
+### 7️⃣ 회원가입 / 로그인 기능 구현  
+- accounts 앱 생성, `SignupAPIView / SessionLoginAPIView / SessionLogoutAPIView`
+- Todo 모델에 `user = ForeignKey` 추가 → 개인 소유 데이터
+- `get_queryset()` 필터링, `perform_create()`로 user 자동 주입
+  
+### 8️⃣ 템플릿 구조 정리  
+- `base.html` / `auth_base.html` 이원화
+- `header.html`에서 로그인 상태별 UI 분기
+- axios CDN 중복 제거
+  
+### 9️⃣ JWT 인증 도입  
+- 세션 → `simplejwt` 전환, access(5~10분) / refresh(7일) - 권장사항
+- `static/js/api.js`: 공통 axios 인스턴스 + Bearer 토큰 자동 부착
+- CSRF 인터셉터, `withCredentials` 제거
+  
+### 🔟 인터랙티브 기능 추가 (Ajax / Axios)  
+- interaction 앱: `TodoLike / TodoBookmark / TodoComment` 모델
+- 좋아요/북마크 토글 (`get_or_create`), 댓글 등록/조회
+- 이벤트 위임 패턴, 카드 클릭 전파 차단
+  
+### 1️⃣1️⃣ CSS 및 UI 정리  
+- CSS 파일 분리: `list / detail / update / login.css`
+- JS 파일 분리: `todo_list.js` 등 페이지별 분리
+- `min(980px, 92vw)` 반응형, 모바일 미디어쿼리
+  
+### 1️⃣2️⃣ 다른 사용자 글 조회 기능  
+- `is_public = BooleanField(default=True)` 추가
+- `get_queryset()`에서 `Q(is_public=True) | Q(user=user)` OR 조건
+- `/me/` API 추가 → JWT 환경에서 username 헤더 표시
+  
+### 1️⃣3️⃣ SQLite → PostgreSQL 전환  
+- Docker로 PostgreSQL 16 컨테이너 실행
+- `dumpdata` → settings 변경 → `migrate` → `loaddata` → **시퀀스 리셋**
+- DBeaver로 DB 연결 확인
+
+  
+### 1️⃣4️⃣ 웹 크롤링 → CSV / JSONL 데이터 정제  
+- Jupyter + BeautifulSoup으로 네이버 영화 리뷰 수집
+- URL SHA1 해시로 `doc_id` 생성 → 중복 방지
+- SQLAlchemy `on_conflict_do_nothing()`으로 PostgreSQL Upsert
+  
+### 1️⃣5️⃣ DBeaver → DRF 데이터 적재  
+- `managed = False` + `db_table = "stg_movie_reviews"`로 기존 테이블 연결
+- Management Command(`import_collected_reviews`)로 CSV/JSONL → DB 적재
+- `bulk_create(ignore_conflicts=True)`로 중복 스킵
+- `ReadOnlyModelViewSet`으로 읽기 전용 API 제공
+  
+### 1️⃣6️⃣ DRF에 Hugging Face 모델 연동  
+`services.py`: `_pipe = None` 전역 캐싱으로 711MB 모델 1회만 로딩
+- `LABEL_1 → positive / LABEL_0 → negative` 정규화
+- `@action` 2개: `GET /{id}/sentiment/` (DB 리뷰), `POST /sentiment/` (직접 입력)
+  
+### 1️⃣8️⃣ Redis + Celery 비동기 처리 및 캐시 적용 
+ `tasks.py`: `@shared_task` 2개 (ID 기반 / 텍스트 직접)
+- API 흐름: **POST → task_id 즉시 반환 → 폴링으로 결과 조회**
+- `pollResult()`: 800ms 간격 폴링, 30초 타임아웃
+- `celery -A mysite worker -l info -P solo` (`-P solo`는 WSL CUDA 충돌 방지)
+
+---
+
+## 🧭 전체 개발 로드맵 - 사진
 
 ### 1️⃣ Django 기본 세팅
 
