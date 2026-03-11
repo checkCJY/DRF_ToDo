@@ -162,7 +162,14 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 <img src="docs/screenshots/14_15/15_curl_check.png" width="500"/>
 <img src="docs/screenshots/14_15/15_admin_data_check1.png" width="500"/>
 <img src="docs/screenshots/14_15/15_admin_data_check2.png" width="500"/>
+
 ### 1️⃣6️⃣ DRF에 Hugging Face 모델 연동
+
+<img src="docs/screenshots/16/16_hf_model_check.png" width="500"/>
+<img src="docs/screenshots/16/16_hf_model_curl.png" width="500"/>
+<img src="docs/screenshots/16/16_텍스트 감정분석 추론_1.png" width="500"/>
+<img src="docs/screenshots/16/16_텍스트 감정분석 추론_2.png" width="500"/>
+<img src="docs/screenshots/16/16_텍스트 감정분석 추론_get.png" width="500"/>
 
 ### 1️⃣8️⃣ Redis + Celery 비동기 처리 및 캐시 적용
 
