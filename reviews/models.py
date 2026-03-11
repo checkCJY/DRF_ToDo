@@ -21,14 +21,18 @@ class CollectedReview(models.Model):
     collected_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
-        # 실제 PostgreSQL 테이블 이름 지정
-        # → Django 기본 이름(app_model)이 아닌
-        #   기존 데이터 파이프라인 테이블을 그대로 사용
+        """
         db_table = "stg_movie_reviews"
+        → 실제 PostgreSQL 테이블 이름 지정
+        → Django 기본 이름(app_model)이 아닌
+        → 기존 데이터 파이프라인 테이블을 그대로 사용
 
         # managed=False
-        # → Django가 이 테이블을 생성/삭제/마이그레이션하지 않음
-        # → 이미 PostgreSQL에 존재하는 테이블을 읽기용으로 연결
+        → Django가 이 테이블을 생성/삭제/마이그레이션하지 않음
+        → 이미 PostgreSQL에 존재하는 테이블을 읽기용으로 연결
+        """
+
+        db_table = "stg_movie_reviews"
         managed = False
 
     # Django Admin / Shell 출력용 문자열
