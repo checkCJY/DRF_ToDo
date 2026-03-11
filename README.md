@@ -155,6 +155,9 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ### 1️⃣4️⃣ 웹 크롤링 → CSV / JSONL 데이터 정제
 
+<img src="docs/screenshots/14_15/14_주피터로 데이터 생성 확인.png" width="500"/>
+<img src="docs/screenshots/14_15/14_데이터확인.png" width="500"/>
+
 ### 1️⃣5️⃣ DBeaver → DRF 데이터 적재
 
 ### 1️⃣6️⃣ DRF에 Hugging Face 모델 연동
