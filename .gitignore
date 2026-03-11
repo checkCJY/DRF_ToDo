@@ -46,3 +46,7 @@ media/
 # 그 외 예외처리 파일
 # 유저 비밀번호 해시값 포함된 민감데이터
 data.json
+
+# Part 14 데이터
+*.csv
+.ipynb_checkpoints/
