@@ -1,5 +1,7 @@
+from django.urls import path
+from .views import CollectedReviewViewSet, reviews_page
+
 from rest_framework.routers import DefaultRouter
-from .views import CollectedReviewViewSet
 # → CollectedReview 데이터를 조회하는 API ViewSet
 
 # DefaultRouter → ViewSet을 등록하면 자동으로 REST API URL을 생성
@@ -25,4 +27,9 @@ router.register(
     → Router가 자동으로 생성한 URL 패턴 목록
     이 값을 urlpatterns에 연결하면 아래 API가 자동으로 생성됩니다.
 """
-urlpatterns = router.urls
+
+urlpatterns = [
+    path("page/", reviews_page, name="reviews-page"),
+]
+
+urlpatterns += router.urls
