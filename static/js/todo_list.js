@@ -364,4 +364,8 @@ document.addEventListener("DOMContentLoaded", () => {
       14) 최초 1페이지 로드
     ========================================================= */
     loadPage(1);
+
+    document.getElementById("movieReviewsBtn").addEventListener("click", () => {
+        window.location.href = "/reviews/page/";
+    });
 });
