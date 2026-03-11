@@ -170,9 +170,6 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 <img src="docs/screenshots/16/16_텍스트 감정분석 추론_1.png" width="500"/>
 <img src="docs/screenshots/16/16_텍스트 감정분석 추론_2.png" width="500"/>
 <img src="docs/screenshots/16/16_텍스트 감정분석 추론_get.png" width="500"/>
-
-### 1️⃣8️⃣ Redis + Celery 비동기 처리 및 캐시 적용
-
 ---
 
 ## 🛠 사용 기술
