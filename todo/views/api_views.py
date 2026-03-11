@@ -59,18 +59,6 @@ class TodoViewSet(viewsets.ModelViewSet):
                 "-created_at"
             )
 
-    def get_queryset(self):
-        user = self.request.user  # 현재 로그인한 사용자
-        check_user = self.request.user.is_authenticated
-        # 비로그인이면 Q(is_public=True) 만 실행
-        if not check_user:
-            return Todo.objects.filter(Q(is_public=True)).order_by("-created_at")
-        # 로그인이면 Q(is_public=True) | Q(user=user) 실행
-        else:
-            return Todo.objects.filter(Q(is_public=True) | Q(user=user)).order_by(
-                "-created_at"
-            )
-
     def list(self, request, *args, **kwargs):
         """
         Todo 목록 API (페이지네이션 응답 커스터마이징).
