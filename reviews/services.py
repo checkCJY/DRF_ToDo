@@ -4,7 +4,8 @@ HuggingFace Transformers 기반 감정 분석 서비스
 """
 
 import os
-from transformers import pipeline
+# CI 환경 통과를 위해서 lazy import로 설정
+# from transformers import pipeline
 
 
 """
@@ -38,6 +39,8 @@ _pipe = None
 
 # 감정 분석 pipeline 로드 함수 (싱글톤 패턴)
 def get_sentiment_pipe():
+    from transformers import pipeline  # CI 환경은 transformers 설치 안되어있음.
+
     """
     감정 분석 pipeline을 생성하거나
     이미 생성된 pipeline을 반환하는 함수
