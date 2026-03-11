@@ -170,6 +170,12 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 <img src="docs/screenshots/16/16_텍스트 감정분석 추론_1.png" width="500"/>
 <img src="docs/screenshots/16/16_텍스트 감정분석 추론_2.png" width="500"/>
 <img src="docs/screenshots/16/16_텍스트 감정분석 추론_get.png" width="500"/>
+
+### 1️⃣7️⃣ Redis / Celery로 비동기 적용하기
+
+<img src="docs/screenshots/17/17_감정추론_동기식(처음 추론).png" width="500"/>
+<img src="docs/screenshots/17/17_감정추론_비동기식.png" width="500"/>
+
 ---
 
 ## 🛠 사용 기술
@@ -210,38 +216,88 @@ AI 모델 연동(Hugging Face), Redis/Celery 비동기 처리까지
 
 ## 📂 프로젝트 구조
 ```
-DRF_todoList/
+DRF_ToDo/
 ├── mysite/                    # Django 프로젝트 설정 (settings, urls 등)
+│   ├── celery.py              # Celery 설정
+│   ├── settings.py
+│   ├── urls.py
+│   ├── asgi.py
+│   └── wsgi.py
 ├── todo/                      # Todo CRUD 앱
 │   ├── views/
 │   │   ├── api_views.py       # DRF ViewSet 기반 API
-│   │   └── templates_views.py # 템플릿 렌더링 뷰 (CBV)
+│   │   ├── templates_views.py # 템플릿 렌더링 뷰 (CBV)
+│   │   └── permissions.py     # 커스텀 권한
 │   ├── tests/                 # 테스트 모음
+│   │   ├── conftest.py
+│   │   ├── test_crud.py
+│   │   ├── test_auth.py
+│   │   ├── test_image.py
+│   │   ├── test_model.py
+│   │   ├── test_pagination.py
+│   │   ├── test_serializer.py
+│   │   ├── test_admin.py
+│   │   ├── test_template_views.py
+│   │   └── test_viewset_crud.py
 │   ├── models.py              # Todo 모델 (제목, 내용, 이미지, 완료 여부 등)
 │   ├── serializers.py         # Todo 직렬화
 │   ├── pagination.py          # 커스텀 페이지네이션
 │   ├── admin.py
 │   └── urls.py
 ├── accounts/                  # 인증 앱 (회원가입, 로그인, JWT)
+│   ├── views.py               # API 뷰
+│   ├── views_page.py          # 템플릿 렌더링 뷰
+│   ├── serializers.py
+│   ├── models.py
+│   └── urls.py
 ├── interaction/               # 좋아요 / 북마크 / 댓글 앱
 │   ├── tests/                 # Interaction 관련 테스트
 │   ├── models.py              # Like, Bookmark, Comment 모델
 │   ├── serializers.py
 │   ├── views.py
 │   └── urls.py
-├── templates/                 # HTML 템플릿 (accounts/, todo/)
-├── static/                    # 정적 파일 (JS, CSS)
+├── reviews/                   # 네이버 영화 리뷰 앱 (크롤링 + 감정분석)
+│   ├── management/commands/
+│   │   └── import_collected_reviews.py  # 리뷰 데이터 적재 커맨드
+│   ├── tests/
+│   │   ├── conftest.py
+│   │   └── test_reviews_async.py        # 비동기 처리 테스트
+│   ├── models.py              # Review 모델
+│   ├── serializers.py
+│   ├── services.py            # 감정분석 서비스 로직
+│   ├── tasks.py               # Celery 비동기 태스크
+│   ├── views.py
+│   └── urls.py
+├── templates/                 # HTML 템플릿
+│   ├── accounts/              # 로그인, 회원가입
+│   ├── todo/                  # Todo 목록, 상세, 생성, 수정
+│   ├── reviews/               # 리뷰 페이지
+│   ├── base.html
+│   ├── auth_base.html
+│   ├── header.html
+│   └── footer.html
+├── static/                    # 정적 파일
+│   ├── css/                   # 페이지별 스타일시트
+│   └── js/                    # Todo / Reviews 관련 JS
 ├── media/                     # 업로드된 이미지
 ├── docs/                      # 문서 및 스크린샷
-│   ├── guide.md
-│   ├── question.md
-│   ├── study.md
-│   ├── interaction_workflow.md  # Interaction 앱 설계 문서
-│   └── screenshots/           # 단계별 스크린샷 (01/ ~ 10/)
+│   ├── guide/
+│   │   ├── guide.md
+│   │   └── Commit_Rules.md
+│   ├── study/
+│   │   ├── study.md
+│   │   ├── question.md
+│   │   ├── interaction_workflow.md
+│   │   └── order.md
+│   └── screenshots/           # 단계별 스크린샷 (01/ ~ 16/)
+├── .github/workflows/
+│   └── django.yml             # CI 워크플로우
 ├── manage.py
+├── main.py                    # Celery 워커 진입점
+├── docker-compose.yml         # Docker 구성
 ├── pyproject.toml             # 패키지 및 도구 설정 (ruff, pytest 등)
+├── pytest.ini                 # pytest 설정
 ├── requirements.txt
-├── Commit_Rules.md
 └── .pre-commit-config.yaml    # pre-commit 훅 설정
 ```
 
