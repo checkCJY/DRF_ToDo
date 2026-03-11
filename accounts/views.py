@@ -41,45 +41,6 @@ class SignupAPIView(APIView):
         return Response({"detail": "회원가입 완료"}, status=status.HTTP_201_CREATED)
 
 
-# JWT 부터 SessionLoginAPIView가 필요 없다.
-# - /api/login/ 은 accounts/urls.py에서 TokenObtainPairView가 처리 (JWT 발급)
-# - 따라서 authenticate/login 로직 제거
-
-# class SessionLoginAPIView(APIView):
-#     """
-#     세션 로그인 API
-
-#     로그인하지 않은 사용자도 접근 가능 (AllowAny)
-
-#     """
-
-#     permission_classes = [AllowAny]
-
-#     def post(self, request):
-#         """POST 요청으로 인증성공시 200 | 인증실패시 400"""
-
-#         # 요청 데이터에서 username, password 추출
-#         username = request.data.get("username", "")
-#         password = request.data.get("password", "")
-
-#         # 사용자 인증
-#         # username / password가 맞는지 확인
-#         user = authenticate(request, username=username, password=password)
-
-#         # 인증 실패
-#         if not user:
-#             return Response(
-#                 {"detail": "아이디/비밀번호가 올바르지 않습니다."},
-#                 status=status.HTTP_400_BAD_REQUEST,
-#             )
-
-#         # 인증 성공 → 세션 로그인 처리
-#         login(request, user)
-
-#         # 로그인 성공 응답
-#         return Response({"detail": "로그인 성공"}, status=status.HTTP_200_OK)
-
-
 class SessionLogoutAPIView(APIView):
     """
     세션 로그아웃 API

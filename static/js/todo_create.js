@@ -21,12 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // [추가됨] 401/403 처리 로직을 함수로 분리 (기존 interceptor 대체)
   function handleAuthError(err) {
     const status = err.response?.status;
-    if (status === 401 || status === 403) {
+    if (status === 401 ) {
       console.log("인증 실패(401/403) → 토큰 삭제 후 로그인 이동");
       // 오타 수정
       localStorage.removeItem(ACCESS_KEY);
       localStorage.removeItem(REFRESH_KEY);
       window.location.href = LOGIN_PAGE_URL;
+    }
+    else if (status === 403){
+      alert("권한이 없습니다.")
     }
     return Promise.reject(err);
   }

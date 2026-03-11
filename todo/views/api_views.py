@@ -1,8 +1,7 @@
-# from rest_framework.views import APIView    # viewsets 사용으로 안씀.
 from rest_framework import viewsets  # viewsets 사용을 위해 추가
 from ..models import Todo
 from ..serializers import TodoSerializer
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from todo.pagination import CustomPageNumberPagination
 
 # Django 앱 간 상대경로 Improt는 동작하지 않기에 절대경로로 작성
@@ -11,49 +10,20 @@ from rest_framework.decorators import action  # Part 10 추가
 from rest_framework.response import Response
 
 from django.db.models import Q
-
-"""
-page_size=              : 한 페이지에 기본적으로 보여줄 데이터 개수
-page_size_query_param   : URL 쿼리 파라미터로 페이지 크기 변경 가능
-max_page_size           : 사용자가 설정할 수 있는 최대 페이지 크기 제한
-"""
+from .permissions import IsOwnerOrReadOnly
 
 
 # Todo 목록 페이지네이션 설정
 class TodoListPagination(CustomPageNumberPagination):
+    """
+    page_size=              : 한 페이지에 기본적으로 보여줄 데이터 개수
+    page_size_query_param   : URL 쿼리 파라미터로 페이지 크기 변경 가능
+    max_page_size           : 사용자가 설정할 수 있는 최대 페이지 크기 제한
+    """
+
     page_size = 3
     page_size_query_param = "page_size"
     max_page_size = 50
-
-
-"""
-ModelViewSet을 사용하면 아래 기능이 자동 생성됩니다
-- list()      : 전체 목록 조회 (GET)
-- retrieve()  : 단일 데이터 조회 (GET)
-- create()    : 데이터 생성 (POST)
-- update()    : 전체 수정 (PUT)
-- partial_update() : 부분 수정 (PATCH)
-- destroy()   : 삭제 (DELETE)
-"""
-
-# Part 10 이전까지의 코드
-# class TodoViewSet(viewsets.ModelViewSet):
-#     serializer_class = TodoSerializer
-#     # 로그인한 사용자만 API 접근 가능
-#     permission_classes = [IsAuthenticated]
-#     # 페이지네이션 설정 적용
-#     pagination_class = TodoListPagination
-
-#     # 조회할 queryset 설정
-#     def get_queryset(self):
-#         # 현재 로그인한 사용자(request.user)의 Todo만 조회
-#         # 최신 Todo가 먼저 나오도록 created_at 기준 내림차순 정렬
-#         return Todo.objects.filter(user=self.request.user).order_by("-created_at")
-
-#     # Todo 생성 시 실행되는 메서드
-#     def perform_create(self, serializer):
-#         # Todo 생성할 때 현재 로그인한 사용자를 자동으로 user 필드에 저장
-#         serializer.save(user=self.request.user)
 
 
 class TodoViewSet(viewsets.ModelViewSet):
@@ -66,13 +36,28 @@ class TodoViewSet(viewsets.ModelViewSet):
         GET    /todos/{id}/   → retrieve
         PUT    /todos/{id}/   → update
         DELETE /todos/{id}/   → destroy
+        PATCH  /todoss/{id}/  → parital_update (현재 사용안함)
 
     기본 permission은 AllowAny(목록·상세는 비인증 허용).
     좋아요·북마크·댓글 액션은 IsAuthenticated 필요.
     """
 
     serializer_class = TodoSerializer
-    permission_classes = [AllowAny]  # 목록·상세는 비인증 허용
+    # permission_classes = [AllowAny]  # 목록·상세는 비인증 허용
+    # update, delete 오버라이딩을 위해서 수정
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        user = self.request.user  # 현재 로그인한 사용자
+        check_user = self.request.user.is_authenticated
+        # 비로그인이면 Q(is_public=True) 만 실행
+        if not check_user:
+            return Todo.objects.filter(Q(is_public=True)).order_by("-created_at")
+        # 로그인이면 Q(is_public=True) | Q(user=user) 실행
+        else:
+            return Todo.objects.filter(Q(is_public=True) | Q(user=user)).order_by(
+                "-created_at"
+            )
 
     def get_queryset(self):
         user = self.request.user  # 현재 로그인한 사용자
